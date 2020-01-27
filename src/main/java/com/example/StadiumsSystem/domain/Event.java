@@ -1,7 +1,6 @@
 package com.example.StadiumsSystem.domain;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import javax.persistence.*;
 import java.time.Period;
 import java.time.ZonedDateTime;
