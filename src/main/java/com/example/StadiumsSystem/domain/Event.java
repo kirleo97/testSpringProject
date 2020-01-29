@@ -10,26 +10,28 @@ import java.time.ZonedDateTime;
 public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "EVENT_ID", unique = true, nullable = false)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "EVENT_EVENTTYPE", nullable = false)
     private EventType eventType;
 
-    @Column(name = "EVENT_NAME")
+    @Column(name = "EVENT_NAME", nullable = false)
     private String eventName;
 
-    @Column(name = "EVENT_DATE")
+    @Column(name = "EVENT_DATE", nullable = false)
     private ZonedDateTime dateOfEvent;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "stadium_id")
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "STADIUM_ID", nullable = false)
     private Stadium stadiumOfEvent;
 
-    @Column(name = "EVENT_PREPARATION_PERIOD")
+    @Column(name = "EVENT_PREPARATION_PERIOD", nullable = false)
     private Period periodWhenStadiumIsBusy;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "manager_id")
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "MANAGER_ID", nullable = false)
     private Manager eventManager;
 
     public Event() {

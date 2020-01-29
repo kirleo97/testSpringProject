@@ -9,9 +9,10 @@ import javax.persistence.*;
 public class EventType {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "EVENTTYPE_ID", unique = true, nullable = false)
     private Integer id;
 
-    @Column(name = "EVENTTYPE_NAME")
+    @Column(name = "EVENTTYPE_NAME", unique = true, nullable = false)
     private String eventTypeName;
 
     public EventType() {

@@ -9,16 +9,17 @@ import javax.persistence.*;
 public class Sector {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "SECTOR_ID", unique = true, nullable = false)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "stadium_id")
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "STADIUM_ID", nullable = false)
     private Stadium stadium;
 
-    @Column(name = "SECTOR_NAME")
+    @Column(name = "SECTOR_NAME", nullable = false)
     private String sectorName;
 
-    @Column(name = "SECTOR_NUMBER_OF_SEATS")
+    @Column(name = "SECTOR_NUMBER_OF_SEATS", nullable = false)
     private int numberOfSeats;
 
     public Sector() {

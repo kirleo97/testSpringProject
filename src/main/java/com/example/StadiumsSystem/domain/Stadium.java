@@ -11,22 +11,26 @@ import java.util.List;
 public class Stadium {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "STADIUM_ID", unique = true, nullable = false)
     private Integer id;
 
     @Size(max = 100)
-    @Column(name = "stadium_name", unique = true)
-    private String name;
+    @Column(name = "stadium_name", unique = true, nullable = false)
+    private String stadiumName;
 
     @ElementCollection
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
+    @JoinTable(name = "stadiums_eventtypes",
+    joinColumns = @JoinColumn(name = "STADIUM_ID"),
+    inverseJoinColumns = @JoinColumn(name = "EVENTTYPE_ID"))
     private List<EventType> eventTypes;
 
     public Stadium() {
     }
 
     @Autowired
-    public Stadium(String name, List<EventType> eventTypes) {
-        this.name = name;
+    public Stadium(String stadiumName, List<EventType> eventTypes) {
+        this.stadiumName = stadiumName;
         this.eventTypes = eventTypes;
     }
 
@@ -39,11 +43,11 @@ public class Stadium {
     }
 
     public String getName() {
-        return name;
+        return stadiumName;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.stadiumName = name;
     }
 
     public List<EventType> getEventTypes() {
