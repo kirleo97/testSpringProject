@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Create EventType</title>
+</head>
+<body>
+<form action="#" th:action="@{/eventType-create}" th:object="${eventType}" method="post">
+    <label for="eventTypeName">EventType name</label>
+    <input type="text" th:field="*{eventTypeName}" id="eventTypeName" placeholder="Write name for EventType">
+    <input type="submit" value="Create EventType">
+</form>
+</body>
+</html>
