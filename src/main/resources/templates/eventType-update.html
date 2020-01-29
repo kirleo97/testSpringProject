@@ -1,10 +1,18 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Update EventType</title>
 </head>
 <body>
-
+<form action="#" th:action="@{/eventType-update}" th:object="${eventType}" method="post">
+    <label for="id">ID</label>
+    <input readonly type="number" th:field="*{id}" id="id" placeholder="ID">
+    <br/>
+    <label for="eventTypeName">Name of EventType</label>
+    <input type="text" th:field="*{eventTypeName}" id="eventTypeName" placeholder="Name of EventType">
+    <br/>
+    <input type="submit" value="Update EventType">
+</form>
 </body>
 </html>

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
@@ -33,6 +34,25 @@ public class EventTypeController {
 
     @PostMapping("/eventType-create")
     public String createEventType(EventType eventType) {
+        eventTypeService.saveEventType(eventType);
+        return "redirect:/eventTypes";
+    }
+
+    @GetMapping("/eventType-delete/{id}")
+    public String deleteEventType(@PathVariable("id") Integer id) {
+        eventTypeService.deleteById(id);
+        return "redirect:/eventTypes";
+    }
+
+    @GetMapping("/eventType-update/{id}")
+    public String updateEventTypeForm(@PathVariable("id") Integer id, Model model) {
+        EventType eventType = eventTypeService.findById(id);
+        model.addAttribute("eventType", eventType);
+        return "eventType-update";
+    }
+
+    @PostMapping("/eventType-update")
+    public String updateEventType(EventType eventType) {
         eventTypeService.saveEventType(eventType);
         return "redirect:/eventTypes";
     }
