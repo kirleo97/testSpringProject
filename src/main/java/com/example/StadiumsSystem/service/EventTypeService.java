@@ -20,10 +20,6 @@ public class EventTypeService {
         return eventTypeRepository.getOne(id);
     }
 
-    public EventType findByName(String name) {
-        return eventTypeRepository.findByEventTypeName(name);
-    }
-
     public List<EventType> findAll() {
         return eventTypeRepository.findAll();
     }

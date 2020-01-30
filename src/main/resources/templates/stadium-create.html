@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Stadium</title>
+</head>
+<body>
+<h1>Please, create some Stadium</h1>
+<form action="#" th:action="@{/stadium-create}" th:object="${stadium}" method="post">
+    <label for="stadiumName">Stadium's name</label>
+    <input type="text" th:field="*{stadiumName}" id="stadiumName" placeholder="Write name for Stadium">
+    <select th:field="*{eventTypes}" multiple>
+        <option th:each="event : ${events}" th:value="${event.eventName}" th:text="${event.eventName}">
+        </option>
+    </select>
+    <input type="submit" value="Create stadium">
+</form>
+<div><a href="/main">Перейти на главную страницу</a></div>
+</body>
+</html>

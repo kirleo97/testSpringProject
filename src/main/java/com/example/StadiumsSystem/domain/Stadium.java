@@ -15,12 +15,12 @@ public class Stadium {
     private Integer id;
 
     @Size(max = 100)
-    @Column(name = "stadium_name", unique = true, nullable = false)
+    @Column(name = "STADIUM_NAME", unique = true, nullable = false)
     private String stadiumName;
 
     @ElementCollection
     @ManyToMany
-    @JoinTable(name = "stadiums_eventtypes",
+    @JoinTable(name = "STADIUMS_EVENTTYPES",
     joinColumns = @JoinColumn(name = "STADIUM_ID"),
     inverseJoinColumns = @JoinColumn(name = "EVENTTYPE_ID"))
     private List<EventType> eventTypes;
@@ -42,12 +42,12 @@ public class Stadium {
         this.id = id;
     }
 
-    public String getName() {
+    public String getStadiumName() {
         return stadiumName;
     }
 
-    public void setName(String name) {
-        this.stadiumName = name;
+    public void setStadiumName(String stadiumName) {
+        this.stadiumName = stadiumName;
     }
 
     public List<EventType> getEventTypes() {

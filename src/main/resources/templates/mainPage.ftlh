@@ -8,5 +8,6 @@
     <div>Hello, user</div>
     <div><a href="/eventTypes">Перейти к списку видов мероприятий</a></div>
     <div><a href="/managers">Перейти к списку организаторов</a></div>
+    <div><a href="/stadiums">Перейти к списку стадионов</a></div>
 </body>
 </html>

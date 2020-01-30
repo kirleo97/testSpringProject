@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Stadiums</title>
+</head>
+<body>
+<div th:switch="${stadiums}">
+    <h2 th:case="null">No stadiums found!</h2>
+    <div th:case="*">
+        <h2>Stadiums</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name of stadium</th>
+                <th>EventTypes</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="stadium : ${stadiums}">
+                <td th:text="${stadium.id}"></td>
+                <td th:text="${stadium.stadiumName}"></td>
+                <td><a th:href="@{stadium-events/{id}(id=${stadium.id})}">Виды мероприятий</a></td>
+                <td><a th:href="@{stadium-update/{id}(id=${stadium.id})}">Edit</a></td>
+                <td><a th:href="@{stadium-delete/{id}(id=${stadium.id})}">Delete</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <p><a href="/stadium-create">Create stadium</a></p>
+</div>
+<div><a href="/main">Перейти на главную страницу</a></div>
+</body>
+</html>

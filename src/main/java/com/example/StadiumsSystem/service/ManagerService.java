@@ -20,10 +20,6 @@ public class ManagerService {
         return managerRepository.getOne(id);
     }
 
-    public Manager findByName(String name) {
-        return managerRepository.findByManagerName(name);
-    }
-
     public List<Manager> findAll() {
         return managerRepository.findAll();
     }

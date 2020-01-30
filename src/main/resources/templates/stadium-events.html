@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>EventTypes of Stadium</title>
+</head>
+<body>
+<div th:switch="${eventTypes}">
+    <h2 th:case="null">No EventTypes found!</h2>
+    <div th:case="*">
+        <h2>Список возможных видов мероприятий для стадиона<div th:text=" ${stadium.stadiumName}"></div></h2>
+        <div>
+            <tr th:each="eventType : ${eventTypes}">
+                <div>
+                    <td th:object="${eventType}"></td>
+                </div>
+            </tr>
+        </div>
+    </div>
+</div>
+<div><a href="/main">Перейти на главную страницу</a></div>
+</body>
+</html>
