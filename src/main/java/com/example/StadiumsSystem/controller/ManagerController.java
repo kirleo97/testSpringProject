@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
@@ -36,6 +37,25 @@ public class ManagerController {
     public String createManager(Manager manager, Model model) {
         managerService.saveManager(manager);
         model.addAttribute("manager", manager);
+        return "redirect:/managers";
+    }
+
+    @GetMapping("/manager-delete/{id}")
+    public String deleteManager(@PathVariable("id") Integer id) {
+        managerService.deleteById(id);
+        return "redirect:/managers";
+    }
+
+    @GetMapping("/manager-update/{id}")
+    public String updateEventTypeForm(@PathVariable("id") Integer id, Model model) {
+        Manager manager = managerService.findById(id);
+        model.addAttribute("manager", manager);
+        return "manager-update";
+    }
+
+    @PostMapping("/manager-update")
+    public String updateEventType(Manager manager) {
+        managerService.saveManager(manager);
         return "redirect:/managers";
     }
 }

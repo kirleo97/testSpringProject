@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Managers</title>
+</head>
+<body>
+<div th:switch="${managers}">
+    <h2 th:case="null">No managers found!</h2>
+    <div th:case="*">
+        <h2>Managers</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name of Manager</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="manager : ${managers}">
+                <td th:text="${manager.id}"></td>
+                <td th:text="${manager.managerName}"></td>
+                <td><a th:href="@{manager-update/{id}(id=${manager.id})}">Edit</a></td>
+                <td><a th:href="@{manager-delete/{id}(id=${manager.id})}">Delete</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <p><a href="/manager-create">Create manager</a></p>
+</div>
+<div><a href="/main">Перейти на главную страницу</a></div>
+</body>
+</html>

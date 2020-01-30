@@ -2,17 +2,17 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head>
     <meta charset="UTF-8">
-    <title>Update EventType</title>
+    <title>Update Manager</title>
 </head>
 <body>
-<form action="#" th:action="@{/eventType-update}" th:object="${eventType}" method="post">
+<form action="#" th:action="@{/manager-update}" th:object="${manager}" method="post">
     <label for="id">ID</label>
     <input readonly type="number" th:field="*{id}" id="id" placeholder="ID">
     <br/>
-    <label for="eventTypeName">Name of EventType</label>
-    <input type="text" th:field="*{eventTypeName}" id="eventTypeName" placeholder="Name of EventType">
+    <label for="managerName">Manager's name</label>
+    <input type="text" th:field="*{managerName}" id="managerName" placeholder="Name of manager">
     <br/>
-    <input type="submit" value="Update EventType">
+    <input type="submit" value="Update manager">
 </form>
 <div><a href="/main">Перейти на главную страницу</a></div>
 </body>
