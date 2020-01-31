@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Events</title>
+</head>
+<body>
+<div>
+    <div>
+        <h2>Events</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Type of event</th>
+                <th>Name of event</th>
+                <th>Date of event</th>
+                <th>Stadium of event</th>
+                <th>Period when stadium is busy</th>
+                <th>Manager</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="event : ${events}">
+                <td th:text="${event.id}"></td>
+                <td th:text="${event.eventType.eventTypeName}"></td>
+                <td th:text="${event.eventName}"></td>
+                <td th:data="${event.dateOfEvent}"></td>
+                <td th:text="${event.stadiumOfEvent.stadiumName}"></td>
+                <td th:data="${event.periodWhenStadiumIsBusy}"></td>
+                <td th:text="${event.eventManager}"></td>
+                <td><a th:href="@{event-update/{id}(id=${event.id})}">Edit</a></td>
+                <td><a th:href="@{event-delete/{id}(id=${event.id})}">Delete</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <p><a href="/event-create">Create stadium</a></p>
+</div>
+<div><a href="/main">Перейти на главную страницу</a></div>
+</body>
+</html>

@@ -1,6 +1,5 @@
 package com.example.StadiumsSystem.service;
 
-import com.example.StadiumsSystem.domain.EventType;
 import com.example.StadiumsSystem.domain.Stadium;
 import com.example.StadiumsSystem.repository.StadiumRepository;
 import org.springframework.beans.factory.annotation.Autowired;

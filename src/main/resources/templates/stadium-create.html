@@ -6,11 +6,11 @@
 </head>
 <body>
 <h1>Please, create some Stadium</h1>
-<form action="#" th:action="@{/stadium-create}" th:object="${stadium}" method="post">
-    <label for="stadiumName">Stadium's name</label>
-    <input type="text" th:field="*{stadiumName}" id="stadiumName" placeholder="Write name for Stadium">
-    <select th:field="*{eventTypes}" multiple>
-        <option th:each="event : ${events}" th:value="${event.eventName}" th:text="${event.eventName}">
+<form action="#" th:action="@{/stadium-create}" method="post">
+    <label>Stadium's name</label>
+    <input type="text" th:field="${stadium.stadiumName}" placeholder="Write name for Stadium">
+    <select th:field="*{stadium.eventTypes}" multiple>
+        <option th:each="event : ${events}" th:value="${event.id}" th:text="${event.eventTypeName}">
         </option>
     </select>
     <input type="submit" value="Create stadium">

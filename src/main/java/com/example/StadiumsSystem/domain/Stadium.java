@@ -18,7 +18,7 @@ public class Stadium {
     @Column(name = "STADIUM_NAME", unique = true, nullable = false)
     private String stadiumName;
 
-    @ElementCollection
+    // @ElementCollection
     @ManyToMany
     @JoinTable(name = "STADIUMS_EVENTTYPES",
     joinColumns = @JoinColumn(name = "STADIUM_ID"),

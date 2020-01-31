@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Stadium</title>
+</head>
+<body>
+<form action="#" th:action="@{/stadium-update}" method="post">
+    <label for="id">ID</label>
+    <input readonly type="number" th:field="${stadium.id}" id="id" placeholder="ID">
+    <br/>
+    <label for="stadiumName">Stadium's name</label>
+    <input type="text" th:field="${stadium.stadiumName}" id="stadiumName" placeholder="Name of stadium">
+    <br/>
+    <select th:field="${stadium.eventTypes}" multiple>
+        <option th:each="event : ${events}" th:value="${event.id}" th:text="${event.eventTypeName}">
+        </option>
+    </select>
+    <input type="submit" value="Update stadium">
+</form>
+<div><a href="/main">Перейти на главную страницу</a></div>
+</body>
+</html>
