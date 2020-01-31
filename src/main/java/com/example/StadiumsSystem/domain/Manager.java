@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class Manager {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "MANAGER_ID", unique = true, nullable = false)
+    @Column(name = "MANAGER_ID")
     private Integer id;
 
     @Column(name = "MANAGER_NAME", nullable = false)

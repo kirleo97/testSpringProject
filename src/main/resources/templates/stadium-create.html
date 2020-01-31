@@ -9,7 +9,7 @@
 <form action="#" th:action="@{/stadium-create}" method="post">
     <label>Stadium's name</label>
     <input type="text" th:field="${stadium.stadiumName}" placeholder="Write name for Stadium">
-    <select th:field="*{stadium.eventTypes}" multiple>
+    <select th:field="${stadium.eventTypes}" multiple>
         <option th:each="event : ${events}" th:value="${event.id}" th:text="${event.eventTypeName}">
         </option>
     </select>

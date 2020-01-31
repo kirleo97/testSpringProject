@@ -2,6 +2,7 @@ package com.example.StadiumsSystem.domain;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZonedDateTime;
 
@@ -10,7 +11,7 @@ import java.time.ZonedDateTime;
 public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "EVENT_ID", unique = true, nullable = false)
+    @Column(name = "EVENT_ID")
     private Integer id;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER, optional = false)
@@ -28,7 +29,7 @@ public class Event {
     private Stadium stadiumOfEvent;
 
     @Column(name = "EVENT_PREPARATION_PERIOD", nullable = false)
-    private Period periodWhenStadiumIsBusy;
+    private LocalDate periodWhenStadiumIsBusy;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "MANAGER_ID", nullable = false)
@@ -38,7 +39,7 @@ public class Event {
     }
 
     @Autowired
-    public Event(EventType eventType, String eventName, ZonedDateTime dateOfEvent, Stadium stadiumOfEvent, Period periodWhenStadiumIsBusy, Manager eventManager) {
+    public Event(EventType eventType, String eventName, ZonedDateTime dateOfEvent, Stadium stadiumOfEvent, LocalDate periodWhenStadiumIsBusy, Manager eventManager) {
         this.eventType = eventType;
         this.eventName = eventName;
         this.dateOfEvent = dateOfEvent;
@@ -87,11 +88,11 @@ public class Event {
         this.stadiumOfEvent = stadiumOfEvent;
     }
 
-    public Period getPeriodWhenStadiumIsBusy() {
+    public LocalDate getPeriodWhenStadiumIsBusy() {
         return periodWhenStadiumIsBusy;
     }
 
-    public void setPeriodWhenStadiumIsBusy(Period periodWhenStadiumIsBusy) {
+    public void setPeriodWhenStadiumIsBusy(LocalDate periodWhenStadiumIsBusy) {
         this.periodWhenStadiumIsBusy = periodWhenStadiumIsBusy;
     }
 

@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "TICKET_ID", unique = true, nullable = false)
+    @Column(name = "TICKET_ID")
     private Integer id;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER, optional = false)

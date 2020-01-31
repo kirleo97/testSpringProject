@@ -11,7 +11,7 @@ import java.util.List;
 public class Stadium {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "STADIUM_ID", unique = true, nullable = false)
+    @Column(name = "STADIUM_ID")
     private Integer id;
 
     @Size(max = 100)

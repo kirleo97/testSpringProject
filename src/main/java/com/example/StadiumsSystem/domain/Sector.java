@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class Sector {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "SECTOR_ID", unique = true, nullable = false)
+    @Column(name = "SECTOR_ID")
     private Integer id;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER, optional = false)
