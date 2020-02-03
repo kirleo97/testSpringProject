@@ -120,4 +120,12 @@ public class Event {
         setStartOfPreparationOfStadium(LocalDate.parse(startOfPreparation, DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         setEndOfDismantleOfStadium(LocalDate.parse(endOfDismantle, DateTimeFormatter.ofPattern("yyyy-MM-dd")));
     }
+
+    public String formatDateOfEvent(ZonedDateTime zonedDateTime) {
+        return zonedDateTime.format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm z"));
+    }
+
+    public String formatPreparationPeriod(LocalDateTime localDateTime) {
+        return localDateTime.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+    }
 }
