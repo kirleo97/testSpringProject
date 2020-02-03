@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Sector</title>
+</head>
+<body>
+<form action="#" th:action="@{/sector-update}" method="post">
+    <label for="id">ID</label>
+    <input readonly type="number" th:field="${sector.id}" id="id" placeholder="ID">
+    <br/>
+    <select th:field="${sector.stadium}">
+        <option th:each="stadium : ${stadiums}" th:value="${stadium.id}" th:text="${stadium.stadiumName}">
+        </option>
+    </select>
+    <br/>
+    <label for="sectorName">Sector's name</label>
+    <input type="text" th:field="${sector.sectorName}" id="sectorName" placeholder="Name of sector">
+    <br/>
+    <label>Sector's number of seats</label>
+    <input type="number" th:field="${sector.numberOfSeats}" placeholder="Write number of seats for Sector">
+    <br/>
+    <input type="submit" value="Update sector">
+</form>
+<div><a href="/main">Перейти на главную страницу</a></div>
+</body>
+</html>

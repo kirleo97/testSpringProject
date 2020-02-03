@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Event</title>
+</head>
+<body>
+<form action="#" th:action="@{/event-update}" method="post">
+    <label for="id">ID</label>
+    <input readonly type="number" th:field="${event.id}" id="id" placeholder="ID">
+    <br/>
+    <select th:field="${event.eventType}">
+        <option th:each="typeOfEvent : ${typesOfEvent}" th:value="${typeOfEvent.id}" th:text="${typeOfEvent.eventTypeName}">
+        </option>
+    </select>
+    <br/>
+    <label for="eventName">Event's name</label>
+    <input type="text" th:field="${event.eventName}" id="eventName" placeholder="Name of event">
+    <br/>
+    <label>Event's date</label>
+    <input type="datetime-local" name="date" placeholder="Write date for Event">
+    <br/>
+    <select th:field="${event.stadiumOfEvent}">
+        <option th:each="stadium : ${stadiums}" th:value="${stadium.id}" th:text="${stadium.stadiumName}">
+        </option>
+    </select>
+    <br/>
+    <label>Event's period of prepare</label>
+    <input type="date" name="startOfPreparation" placeholder="Write period of prepare for Event">
+    <input type="date" name="endOfDismantle" placeholder="Write period of prepare for Event">
+    <br/>
+    <select th:field="${event.eventManager}">
+        <option th:each="manager : ${managers}" th:value="${manager.id}" th:text="${manager.managerName}">
+        </option>
+    </select>
+    <br/>
+    <input type="submit" value="Update event">
+</form>
+<div><a href="/main">Перейти на главную страницу</a></div>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Sector</title>
+</head>
+<body>
+<h1>Please, create some Sector</h1>
+<form action="#" th:action="@{/sector-create}" method="post">
+    <select th:field="${sector.stadium}">
+        <option th:each="stadium : ${stadiums}" th:value="${stadium.id}" th:text="${stadium.stadiumName}">
+        </option>
+    </select>
+    <label>Sector's name</label>
+    <input type="text" th:field="${sector.sectorName}" placeholder="Write name for Sector">
+    <label>Sector's number of seats</label>
+    <input type="number" th:field="${sector.numberOfSeats}" placeholder="Write number of seats for Sector">
+    <input type="submit" value="Create sector">
+</form>
+<div><a href="/main">Перейти на главную страницу</a></div>
+</body>
+</html>

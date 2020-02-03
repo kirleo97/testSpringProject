@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Sectors</title>
+</head>
+<body>
+<div>
+    <div>
+        <h2>Sectors</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Sector's stadium</th>
+                <th>Sector's name</th>
+                <th>Sector's number of seats</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="sector : ${sectors}">
+                <td th:text="${sector.id}"></td>
+                <td th:text="${sector.stadium.stadiumName}"></td>
+                <td th:text="${sector.sectorName}"></td>
+                <td th:text="${sector.numberOfSeats}"></td>
+                <td><a th:href="@{sector-update/{id}(id=${sector.id})}">Edit</a></td>
+                <td><a th:href="@{sector-delete/{id}(id=${sector.id})}">Delete</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <p><a href="/sector-create">Create sector</a></p>
+</div>
+<div><a href="/main">Перейти на главную страницу</a></div>
+</body>
+</html>

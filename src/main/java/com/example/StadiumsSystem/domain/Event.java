@@ -2,9 +2,8 @@ package com.example.StadiumsSystem.domain;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.Period;
-import java.time.ZonedDateTime;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table(name = "events")
@@ -114,5 +113,11 @@ public class Event {
 
     public void setEventManager(Manager eventManager) {
         this.eventManager = eventManager;
+    }
+
+    public void parseAndSetAllDates(String date, String startOfPreparation, String endOfDismantle) {
+        setDateOfEvent(ZonedDateTime.of(LocalDateTime.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm")), ZoneId.of("Europe/Moscow")));
+        setStartOfPreparationOfStadium(LocalDate.parse(startOfPreparation, DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        setEndOfDismantleOfStadium(LocalDate.parse(endOfDismantle, DateTimeFormatter.ofPattern("yyyy-MM-dd")));
     }
 }
