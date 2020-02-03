@@ -1,6 +1,5 @@
 package com.example.StadiumsSystem.controller;
 
-import com.example.StadiumsSystem.domain.EventType;
 import com.example.StadiumsSystem.domain.Stadium;
 import com.example.StadiumsSystem.service.EventTypeService;
 import com.example.StadiumsSystem.service.StadiumService;
@@ -29,15 +28,6 @@ public class StadiumController {
         List<Stadium> stadiums = stadiumService.findAll();
         model.addAttribute("stadiums", stadiums);
         return "stadium-list";
-    }
-
-    @GetMapping("/stadium-events/{id}")
-    public String getEventTypesOfStadium(@PathVariable("id") Integer id, Model model) {
-        Stadium stadium = stadiumService.findById(id);
-        List<EventType> eventTypes = stadium.getEventTypes();
-        model.addAttribute("stadium", stadium);
-        model.addAttribute("eventTypes", eventTypes);
-        return "stadium-events";
     }
 
     @GetMapping("/stadium-create")

@@ -9,8 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Controller
@@ -46,20 +50,23 @@ public class EventController {
     }
 
     @PostMapping("/event-create")
-    public String createEvent(Event event, Model model) {
+    public String createEvent(Event event, @RequestParam String date, @RequestParam String startOfPreparation, @RequestParam String endOfDismantle, Model model) {
+        event.setDateOfEvent(ZonedDateTime.of(LocalDateTime.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm")), ZoneId.of("Europe/Moscow")));
+        event.setStartOfPreparationOfStadium(LocalDate.parse(startOfPreparation, DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        event.setEndOfDismantleOfStadium(LocalDate.parse(endOfDismantle, DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         eventService.saveEvent(event);
         model.addAttribute("event", event);
         return "redirect:/events";
     }
 
 
-    /*
-    @GetMapping("/stadium-delete/{id}")
-    public String deleteStadium(@PathVariable("id") Integer id) {
-        stadiumService.deleteById(id);
-        return "redirect:/stadiums";
+    @GetMapping("/event-delete/{id}")
+    public String deleteEvent(@PathVariable("id") Integer id) {
+        eventService.deleteById(id);
+        return "redirect:/events";
     }
 
+    /*
     @GetMapping("/stadium-update/{id}")
     public String updateStadiumForm(@PathVariable("id") Integer id, Model model) {
         Stadium stadium = stadiumService.findById(id);

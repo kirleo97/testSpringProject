@@ -14,13 +14,14 @@
     <label>Event's name</label>
     <input type="text" th:field="${event.eventName}" placeholder="Write name for Event">
     <label>Event's date</label>
-    <input type="datetime-local" th:field="${event.dateOfEvent}" placeholder="Write date for Event">
+    <input type="datetime-local" name="date" placeholder="Write date for Event">
     <select th:field="${event.stadiumOfEvent}">
         <option th:each="stadium : ${stadiums}" th:value="${stadium.id}" th:text="${stadium.stadiumName}">
         </option>
     </select>
     <label>Event's period of prepare</label>
-    <input type="date" th:field="${event.periodWhenStadiumIsBusy}" placeholder="Write period of prepare for Event">
+    <input type="date" name="startOfPreparation" placeholder="Write period of prepare for Event">
+    <input type="date" name="endOfDismantle" placeholder="Write period of prepare for Event">
     <select th:field="${event.eventManager}">
         <option th:each="manager : ${managers}" th:value="${manager.id}" th:text="${manager.managerName}">
         </option>

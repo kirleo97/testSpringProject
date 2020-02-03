@@ -16,7 +16,8 @@
                 <th>Name of event</th>
                 <th>Date of event</th>
                 <th>Stadium of event</th>
-                <th>Period when stadium is busy</th>
+                <th>Start of preparation of stadium</th>
+                <th>End of dismantle of stadium</th>
                 <th>Manager</th>
             </tr>
             </thead>
@@ -25,10 +26,11 @@
                 <td th:text="${event.id}"></td>
                 <td th:text="${event.eventType.eventTypeName}"></td>
                 <td th:text="${event.eventName}"></td>
-                <td th:data="${event.dateOfEvent}"></td>
+                <td th:text="${event.dateOfEvent}"></td>
                 <td th:text="${event.stadiumOfEvent.stadiumName}"></td>
-                <td th:data="${event.periodWhenStadiumIsBusy}"></td>
-                <td th:text="${event.eventManager}"></td>
+                <td th:text="${event.startOfPreparationOfStadium}"></td>
+                <td th:text="${event.endOfDismantleOfStadium}"></td>
+                <td th:text="${event.eventManager.managerName}"></td>
                 <td><a th:href="@{event-update/{id}(id=${event.id})}">Edit</a></td>
                 <td><a th:href="@{event-delete/{id}(id=${event.id})}">Delete</a></td>
             </tr>

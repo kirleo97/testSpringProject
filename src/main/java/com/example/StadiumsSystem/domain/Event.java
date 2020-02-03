@@ -28,8 +28,11 @@ public class Event {
     @JoinColumn(name = "STADIUM_ID", nullable = false)
     private Stadium stadiumOfEvent;
 
-    @Column(name = "EVENT_PREPARATION_PERIOD", nullable = false)
-    private LocalDate periodWhenStadiumIsBusy;
+    @Column(name = "event_startOfPreparationOfStadium", nullable = false)
+    private LocalDate startOfPreparationOfStadium;
+
+    @Column(name = "event_endOfDismantleOfStadium", nullable = false)
+    private LocalDate endOfDismantleOfStadium;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "MANAGER_ID", nullable = false)
@@ -39,12 +42,13 @@ public class Event {
     }
 
     @Autowired
-    public Event(EventType eventType, String eventName, ZonedDateTime dateOfEvent, Stadium stadiumOfEvent, LocalDate periodWhenStadiumIsBusy, Manager eventManager) {
+    public Event(EventType eventType, String eventName, ZonedDateTime dateOfEvent, Stadium stadiumOfEvent, LocalDate startOfPreparationOfStadium, LocalDate endOfDismantleOfStadium, Manager eventManager) {
         this.eventType = eventType;
         this.eventName = eventName;
         this.dateOfEvent = dateOfEvent;
         this.stadiumOfEvent = stadiumOfEvent;
-        this.periodWhenStadiumIsBusy = periodWhenStadiumIsBusy;
+        this.startOfPreparationOfStadium = startOfPreparationOfStadium;
+        this.endOfDismantleOfStadium = endOfDismantleOfStadium;
         this.eventManager = eventManager;
     }
 
@@ -88,12 +92,20 @@ public class Event {
         this.stadiumOfEvent = stadiumOfEvent;
     }
 
-    public LocalDate getPeriodWhenStadiumIsBusy() {
-        return periodWhenStadiumIsBusy;
+    public LocalDate getStartOfPreparationOfStadium() {
+        return startOfPreparationOfStadium;
     }
 
-    public void setPeriodWhenStadiumIsBusy(LocalDate periodWhenStadiumIsBusy) {
-        this.periodWhenStadiumIsBusy = periodWhenStadiumIsBusy;
+    public void setStartOfPreparationOfStadium(LocalDate startOfPreparationOfStadium) {
+        this.startOfPreparationOfStadium = startOfPreparationOfStadium;
+    }
+
+    public LocalDate getEndOfDismantleOfStadium() {
+        return endOfDismantleOfStadium;
+    }
+
+    public void setEndOfDismantleOfStadium(LocalDate endOfDismantleOfStadium) {
+        this.endOfDismantleOfStadium = endOfDismantleOfStadium;
     }
 
     public Manager getEventManager() {

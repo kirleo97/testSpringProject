@@ -21,7 +21,11 @@
             <tr th:each="stadium : ${stadiums}">
                 <td th:text="${stadium.id}"></td>
                 <td th:text="${stadium.stadiumName}"></td>
-                <td><a th:href="@{stadium-events/{id}(id=${stadium.id})}">Виды мероприятий</a></td>
+                <td>
+                    <ul>
+                        <li th:each="typeOfEvent : ${stadium.eventTypes}" th:text="${typeOfEvent.eventTypeName}">Name of event type</li>
+                    </ul>
+                </td>
                 <td><a th:href="@{stadium-update/{id}(id=${stadium.id})}">Edit</a></td>
                 <td><a th:href="@{stadium-delete/{id}(id=${stadium.id})}">Delete</a></td>
             </tr>
