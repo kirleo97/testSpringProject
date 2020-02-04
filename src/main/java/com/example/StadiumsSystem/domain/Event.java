@@ -115,17 +115,25 @@ public class Event {
         this.eventManager = eventManager;
     }
 
-    public void parseAndSetAllDates(String date, String startOfPreparation, String endOfDismantle) {
-        setDateOfEvent(ZonedDateTime.of(LocalDateTime.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm")), ZoneId.of("Europe/Moscow")));
-        setStartOfPreparationOfStadium(LocalDate.parse(startOfPreparation, DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-        setEndOfDismantleOfStadium(LocalDate.parse(endOfDismantle, DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+    public ZonedDateTime parseDateOfEventFromDefaultPattern(String dateOfEvent) {
+        return ZonedDateTime.of(LocalDateTime.parse(dateOfEvent, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm")), ZoneId.of("Europe/Moscow"));
+    }
+
+    public LocalDate parseDateOfPreparationPeriodFromDefaultPattern(String dateOfPeriod) {
+        return LocalDate.parse(dateOfPeriod, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 
     public String formatDateOfEvent(ZonedDateTime zonedDateTime) {
         return zonedDateTime.format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm z"));
     }
 
-    public String formatPreparationPeriod(LocalDateTime localDateTime) {
-        return localDateTime.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+    public String formatDateOfPreparationPeriod(LocalDate localDate) {
+        return localDate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+    }
+
+    public void setAllDatesForEvent(ZonedDateTime dateOfEvent, LocalDate startOfPreparation, LocalDate endOfDismantle) {
+        setDateOfEvent(dateOfEvent);
+        setStartOfPreparationOfStadium(startOfPreparation);
+        setEndOfDismantleOfStadium(endOfDismantle);
     }
 }

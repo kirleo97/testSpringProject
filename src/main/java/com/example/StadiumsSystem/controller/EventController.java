@@ -49,7 +49,7 @@ public class EventController {
 
     @PostMapping("/event-create")
     public String createEvent(Event event, @RequestParam String date, @RequestParam String startOfPreparation, @RequestParam String endOfDismantle, Model model) {
-        event.parseAndSetAllDates(date, startOfPreparation, endOfDismantle);
+        event.setAllDatesForEvent(event.parseDateOfEventFromDefaultPattern(date), event.parseDateOfPreparationPeriodFromDefaultPattern(startOfPreparation), event.parseDateOfPreparationPeriodFromDefaultPattern(endOfDismantle));
         eventService.saveEvent(event);
         return "redirect:/events";
     }
@@ -74,7 +74,7 @@ public class EventController {
 
     @PostMapping("/event-update")
     public String updateEvent(Event event, @RequestParam String date, @RequestParam String startOfPreparation, @RequestParam String endOfDismantle) {
-        event.parseAndSetAllDates(date, startOfPreparation, endOfDismantle);
+        event.setAllDatesForEvent(event.parseDateOfEventFromDefaultPattern(date), event.parseDateOfPreparationPeriodFromDefaultPattern(startOfPreparation), event.parseDateOfPreparationPeriodFromDefaultPattern(endOfDismantle));
         eventService.saveEvent(event);
         return "redirect:/events";
     }
