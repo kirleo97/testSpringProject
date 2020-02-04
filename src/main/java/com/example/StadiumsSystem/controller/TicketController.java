@@ -123,4 +123,12 @@ public class TicketController {
         ticketService.saveTicket(ticket);
         return "redirect:/tickets/event/{eventId}";
     }
+
+    @PostMapping("/ticket-buy/{eventId}/{ticketId}")
+    public String buyTicket(@PathVariable Integer eventId, @PathVariable Integer ticketId) {
+        Ticket ticket = ticketService.findById(ticketId);
+        ticket.setTicketBought(true);
+        ticketService.saveTicket(ticket);
+        return "redirect:/tickets/event/{eventId}";
+    }
 }

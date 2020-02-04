@@ -27,6 +27,14 @@
                 <td th:text="${ticket.ticketBought}"></td>
                 <td><a th:href="@{/ticket-update/event/{eventId}/{ticketId} (eventId=${event.id}, ticketId=${ticket.id})}">Edit</a></td>
                 <td><a th:href="@{/ticket-delete/{eventId}/{ticketId} (eventId=${event.id}, ticketId=${ticket.id}) }">Delete</a></td>
+                <td>
+                    <form action="#" th:action="@{/ticket-buy/{eventId}/{ticketId} (eventId=${event.id}, ticketId=${ticket.id})}" method="post">
+                        <input type="submit" value="Buy ticket">
+                    </form>
+<!--
+                    <input type="submit" th:action="@{/ticket-buy/{eventId}/{ticketId} (eventId=${event.id}, ticketId=${ticket.id})}" th:method="post" value="Buy ticket">
+-->
+                </td>
             </tr>
             </tbody>
         </table>
