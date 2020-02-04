@@ -11,18 +11,21 @@
     <div th:text="${'Тип мероприятия: ' + event.eventType.eventTypeName}"></div>
     <div th:text="${'Дата мероприятия: ' + event.formatDateOfEvent(event.dateOfEvent)}"></div>
     <label>Choose sector</label>
-    <select th:field="${ticket.sectorOfTicket}">
+    <select name="sectorId">
         <option th:each="sector : ${sectors}" th:value="${sector.id}" th:text="${sector.sectorName}">
         </option>
     </select>
     <br/>
-    <label>Choose seat number</label>
-    <input type="number" th:field="${ticket.seatNumber}" placeholder="Write seat's number of ticket">
+    <label>Choose seat number you want to create tickets from</label>
+    <input type="number" name="fromSeatNumber" placeholder="Write number FROM">
     <br/>
-    <label>Choose ticket's cost</label>
-    <input type="number" th:field="${ticket.ticketCost}" placeholder="Write cost of ticket">
-    <br>
-    <input type="submit" value="Create ticket">
+    <label>Choose seat number you want to create tickets to</label>
+    <input type="number" name="toSeatNumber" placeholder="Write number TO">
+    <br/>
+    <label>Choose cost of ticket</label>
+    <input type="number" name="cost" placeholder="Write cost">
+    <br/>
+    <input type="submit" value="Create tickets">
 </form>
 <div><a href="/main">Перейти на главную страницу</a></div>
 </body>

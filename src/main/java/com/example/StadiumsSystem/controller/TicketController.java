@@ -11,8 +11,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.persistence.criteria.CriteriaBuilder;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Controller
@@ -45,7 +47,6 @@ public class TicketController {
 
     @GetMapping("/ticket-create/event/{id}")
     public String createTicketForm(@PathVariable Integer id, Model model) {
-        model.addAttribute("ticket", new Ticket());
         Event event = eventService.findById(id);
         model.addAttribute("event", event);
         model.addAttribute("sectors", sectorService.findSectorsByStadium(event.getStadiumOfEvent()));
@@ -53,20 +54,24 @@ public class TicketController {
     }
 
     @PostMapping("/ticket-create/event/{id}")
-    public String createEvent(@PathVariable Integer id, Ticket ticket, Model model) {
-        ticket.setEventOfTicket(eventService.findById(id));
-        ticketService.saveTicket(ticket);
+    public String createEvent(@PathVariable Integer id,
+                              @RequestParam Integer sectorId,
+                              @RequestParam Integer fromSeatNumber,
+                              @RequestParam Integer toSeatNumber,
+                              @RequestParam Integer cost) {
+        for (int i = fromSeatNumber; i <=toSeatNumber; i++) {
+            ticketService.saveTicket(new Ticket(eventService.findById(id), sectorService.findById(sectorId), i, new BigDecimal(cost)));
+        }
         return "redirect:/tickets/event/{id}";
     }
 
-    /*
-    @GetMapping("/event-delete/{id}")
-    public String deleteEvent(@PathVariable("id") Integer id) {
-        eventService.deleteById(id);
-        return "redirect:/events";
+    @GetMapping("/ticket-delete/{id}")
+    public String deleteTicket(@PathVariable Integer id) {
+        ticketService.deleteById(id);
+        return "redirect:/tickets";
     }
 
-
+    /*
     @GetMapping("/event-update/{id}")
     public String updateEventForm(@PathVariable("id") Integer id, Model model) {
         Event event = eventService.findById(id);
