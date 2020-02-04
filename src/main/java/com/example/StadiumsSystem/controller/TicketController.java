@@ -66,8 +66,7 @@ public class TicketController {
     }
 
     @GetMapping("/ticket-delete/{eventId}/{ticketId}")
-    public String deleteDefinedTicket(@PathVariable Integer eventId, @PathVariable Integer ticketId, Model model) {
-        Event event = ticketService.findById(ticketId).getEventOfTicket();
+    public String deleteDefinedTicket(@PathVariable Integer eventId, @PathVariable Integer ticketId) {
         ticketService.deleteById(ticketId);
         return "redirect:/tickets/event/{eventId}";
     }

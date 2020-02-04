@@ -11,6 +11,12 @@
     <div th:text="${'Тип мероприятия: ' + event.eventType.eventTypeName}"></div>
     <div th:text="${'Дата мероприятия: ' + event.formatDateOfEvent(event.dateOfEvent)}"></div>
     <br/>
+    <label>Choose sector</label>
+    <select name="sectorId">
+        <option th:each="sector : ${sectors}" th:value="${sector.id}" th:text="${sector.sectorName}">
+        </option>
+    </select>
+    <br/>
     <label>Choose seat number you want to delete tickets from</label>
     <input type="number" name="fromSeatNumber" placeholder="Write number FROM">
     <br/>
