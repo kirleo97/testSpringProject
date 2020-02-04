@@ -1,6 +1,7 @@
 package com.example.StadiumsSystem.service;
 
 import com.example.StadiumsSystem.domain.Sector;
+import com.example.StadiumsSystem.domain.Stadium;
 import com.example.StadiumsSystem.repository.SectorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,4 +30,8 @@ public class SectorService {
     }
 
     public void deleteById(Integer id) { sectorRepository.deleteById(id); }
+
+    public List<Sector> findSectorsByStadium(Stadium stadium) {
+        return sectorRepository.findAllByStadium(stadium);
+    }
 }

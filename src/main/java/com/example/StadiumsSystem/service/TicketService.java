@@ -1,8 +1,12 @@
 package com.example.StadiumsSystem.service;
 
+import com.example.StadiumsSystem.domain.Event;
+import com.example.StadiumsSystem.domain.Ticket;
 import com.example.StadiumsSystem.repository.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class TicketService {
@@ -11,5 +15,25 @@ public class TicketService {
     @Autowired
     public TicketService(TicketRepository ticketRepository) {
         this.ticketRepository = ticketRepository;
+    }
+
+    public Ticket findById(Integer id) {
+        return ticketRepository.getOne(id);
+    }
+
+    public List<Ticket> findAll() {
+        return ticketRepository.findAll();
+    }
+
+    public Ticket saveTicket(Ticket ticket) {
+        return ticketRepository.save(ticket);
+    }
+
+    public void deleteById(Integer id) {
+        ticketRepository.deleteById(id);
+    }
+
+    public List<Ticket> findByEvent(Event event) {
+        return ticketRepository.findAllByEventOfTicket(event);
     }
 }

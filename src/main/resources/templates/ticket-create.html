@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Ticket</title>
+</head>
+<body>
+<h1>Please, create some Ticket</h1>
+<form action="#" th:action="@{/ticket-create/event/{id} (id=${event.id})}" method="post">
+    <div th:text="${'Мероприятие: ' + event.eventName}"></div>
+    <div th:text="${'Тип мероприятия: ' + event.eventType.eventTypeName}"></div>
+    <div th:text="${'Дата мероприятия: ' + event.formatDateOfEvent(event.dateOfEvent)}"></div>
+    <label>Choose sector</label>
+    <select th:field="${ticket.sectorOfTicket}">
+        <option th:each="sector : ${sectors}" th:value="${sector.id}" th:text="${sector.sectorName}">
+        </option>
+    </select>
+    <br/>
+    <label>Choose seat number</label>
+    <input type="number" th:field="${ticket.seatNumber}" placeholder="Write seat's number of ticket">
+    <br/>
+    <label>Choose ticket's cost</label>
+    <input type="number" th:field="${ticket.ticketCost}" placeholder="Write cost of ticket">
+    <br>
+    <input type="submit" value="Create ticket">
+</form>
+<div><a href="/main">Перейти на главную страницу</a></div>
+</body>
+</html>

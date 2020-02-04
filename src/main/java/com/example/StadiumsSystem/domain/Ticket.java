@@ -29,7 +29,7 @@ public class Ticket {
 
     @Column(name = "TICKET_ISFREE", nullable = false)
     @Autowired
-    private boolean isTicketFree = true;
+    private boolean isTicketBought = false;
 
     public Ticket() {
     }
@@ -82,11 +82,11 @@ public class Ticket {
         this.ticketCost = ticketCost;
     }
 
-    public boolean isTicketFree() {
-        return isTicketFree;
+    public boolean isTicketBought() {
+        return isTicketBought;
     }
 
-    public void setTicketFree(boolean ticketFree) {
-        isTicketFree = ticketFree;
+    public void setTicketBought(boolean ticketBought) {
+        isTicketBought = ticketBought;
     }
 }

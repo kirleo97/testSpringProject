@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Tickets</title>
+</head>
+<body>
+    <h1>Please, click on event whose tickets you want to view</h1>
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <th>Name of event</th>
+                <th>Type of event</th>
+                <th>Date of event</th>
+                <th>Stadium of event</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="event : ${events}">
+                <td><a th:href="@{tickets/event/{id}(id=${event.id})}" th:text="${event.eventName}"></a></td>
+                <td th:text="${event.eventType.eventTypeName}"></td>
+                <td th:text="${event.formatDateOfEvent(event.dateOfEvent)}"></td>
+                <td th:text="${event.stadiumOfEvent.stadiumName}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div><a href="/main">Перейти на главную страницу</a></div>
+</body>
+</html>

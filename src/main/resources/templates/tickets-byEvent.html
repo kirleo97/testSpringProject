@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>TicketsByEvent</title>
+</head>
+<body>
+<div>
+    <div>
+        <h2>Билеты на выбранное мероприятие</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Sector</th>
+                <th>Seat's number</th>
+                <th>Cost</th>
+                <th>Is bought</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="ticket : ${tickets}">
+                <td th:text="${ticket.id}"></td>
+                <td th:text="${ticket.sectorOfTicket.sectorName}"></td>
+                <td th:text="${ticket.seatNumber}"></td>
+                <td th:text="${ticket.ticketCost}"></td>
+                <td th:text="${ticket.ticketBought}"></td>
+                <td><a th:href="@{ticket-update/{id}(id=${ticket.id})}">Edit</a></td>
+                <td><a th:href="@{ticket-delete/{id}(id=${ticket.id})}">Delete</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <p><a th:href="@{/ticket-create/event/{id}(id=${event.id})}">Create ticket</a></p>
+</div>
+<div><a href="/main">Перейти на главную страницу</a></div>
+</body>
+</html>
