@@ -31,10 +31,4 @@ public class StadiumService {
     public void deleteById(Integer id) {
         stadiumRepository.deleteById(id);
     }
-
-    /*
-    public List<Stadium> findByEventType(EventType eventType) {
-        return stadiumRepository.findAllByEventType(eventType);
-    }
-    */
 }

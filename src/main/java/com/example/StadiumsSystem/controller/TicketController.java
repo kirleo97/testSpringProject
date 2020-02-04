@@ -40,7 +40,7 @@ public class TicketController {
     public String getTicketsByEvent(@PathVariable Integer id, Model model) {
         Event event = eventService.findById(id);
         model.addAttribute("event", event);
-        List<Ticket> tickets = ticketService.findByEvent(event);
+        List<Ticket> tickets = ticketService.findAllByEvent(event);
         model.addAttribute("tickets", tickets);
         return "tickets-byEvent";
     }
@@ -80,7 +80,7 @@ public class TicketController {
     }
 
     @PostMapping("/ticket-delete/event/{id}")
-    public String deleteTicket(@PathVariable Integer id,
+    public String deleteSomeTickets(@PathVariable Integer id,
                                @RequestParam Integer sectorId,
                                @RequestParam Integer fromSeatNumber,
                                @RequestParam Integer toSeatNumber) {
@@ -95,22 +95,32 @@ public class TicketController {
         }
         return "redirect:/tickets/event/{id}";
     }
-    /*
-    @GetMapping("/event-update/{id}")
-    public String updateEventForm(@PathVariable("id") Integer id, Model model) {
-        Event event = eventService.findById(id);
+
+    @GetMapping("/ticket-update/event/{eventId}/{ticketId}")
+    public String updateTicketForm(@PathVariable Integer eventId, @PathVariable Integer ticketId, Model model) {
+        Event event = eventService.findById(eventId);
         model.addAttribute("event", event);
-        model.addAttribute("typesOfEvent", eventTypeService.findAll());
-        model.addAttribute("stadiums", stadiumService.findAll());
-        model.addAttribute("managers", managerService.findAll());
-        return "event-update";
+        model.addAttribute("ticket", ticketService.findById(ticketId));
+        model.addAttribute("sectors", sectorService.findSectorsByStadium(event.getStadiumOfEvent()));
+        return "ticket-update";
     }
 
-    @PostMapping("/event-update")
-    public String updateEvent(Event event, @RequestParam String date, @RequestParam String startOfPreparation, @RequestParam String endOfDismantle) {
-        event.setAllDatesForEvent(event.parseDateOfEventFromDefaultPattern(date), event.parseDateOfPreparationPeriodFromDefaultPattern(startOfPreparation), event.parseDateOfPreparationPeriodFromDefaultPattern(endOfDismantle));
-        eventService.saveEvent(event);
-        return "redirect:/events";
+    @PostMapping("/ticket-update/event/{eventId}/{ticketId}")
+    public String updateEvent(@PathVariable Integer eventId,
+                              @PathVariable Integer ticketId,
+                              @RequestParam Integer sectorId,
+                              @RequestParam Integer numberOfTicketSeat,
+                              @RequestParam Integer cost) {
+        Event event = eventService.findById(eventId);
+        Sector sector = sectorService.findById(sectorId);
+        Ticket ticket = ticketService.findById(ticketId);
+        if (ticketService.findByEventOfTicketAndSectorOfTicketAndSeatNumber(event, sector, numberOfTicketSeat) != null) {
+            return "redirect:/tickets/event/{eventId}";
+        }
+        ticket.setSectorOfTicket(sector);
+        ticket.setSeatNumber(numberOfTicketSeat);
+        ticket.setTicketCost(new BigDecimal(cost));
+        ticketService.saveTicket(ticket);
+        return "redirect:/tickets/event/{eventId}";
     }
-    */
 }

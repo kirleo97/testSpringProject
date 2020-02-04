@@ -34,11 +34,15 @@ public class TicketService {
         ticketRepository.deleteById(id);
     }
 
-    public List<Ticket> findByEvent(Event event) {
+    public List<Ticket> findAllByEvent(Event event) {
         return ticketRepository.findAllByEventOfTicket(event);
     }
 
     public Ticket findByEventOfTicketAndSectorOfTicketAndSeatNumber(Event eventOfTicket, Sector sectorOfTicket, Integer seatNumber) {
         return ticketRepository.findByEventOfTicketAndSectorOfTicketAndSeatNumber(eventOfTicket, sectorOfTicket, seatNumber);
+    }
+
+    public void deleteByEventOfTicketAndSectorOfTicketAndSeatNumber(Event eventOfTicket, Sector sectorOfTicket, Integer seatNumber) {
+        ticketRepository.deleteByEventOfTicketAndSectorOfTicketAndSeatNumber(eventOfTicket, sectorOfTicket, seatNumber);
     }
 }

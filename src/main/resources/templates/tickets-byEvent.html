@@ -25,7 +25,7 @@
                 <td th:text="${ticket.seatNumber}"></td>
                 <td th:text="${ticket.ticketCost}"></td>
                 <td th:text="${ticket.ticketBought}"></td>
-                <td><a th:href="@{/ticket-update/{id}(id=${ticket.id})}">Edit</a></td>
+                <td><a th:href="@{/ticket-update/event/{eventId}/{ticketId} (eventId=${event.id}, ticketId=${ticket.id})}">Edit</a></td>
                 <td><a th:href="@{/ticket-delete/{eventId}/{ticketId} (eventId=${event.id}, ticketId=${ticket.id}) }">Delete</a></td>
             </tr>
             </tbody>

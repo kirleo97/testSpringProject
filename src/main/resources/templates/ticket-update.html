@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Ticket</title>
+</head>
+<body>
+<h1>Please, edit Ticket</h1>
+<form action="#" th:action="@{/ticket-update/event/{eventId}/{ticketId} (eventId=${event.id}, ticketId=${ticket.id})}" method="post">
+    <label for="id">ID</label>
+    <input readonly type="number" th:field="${ticket.id}" id="id" placeholder="ID">
+    <div th:text="${'Мероприятие: ' + event.eventName}"></div>
+    <div th:text="${'Тип мероприятия: ' + event.eventType.eventTypeName}"></div>
+    <div th:text="${'Дата мероприятия: ' + event.formatDateOfEvent(event.dateOfEvent)}"></div>
+    <label>Choose sector</label>
+    <select name="sectorId">
+        <option th:each="sector : ${sectors}" th:value="${sector.id}" th:text="${sector.sectorName}">
+        </option>
+    </select>
+    <br/>
+    <label>Choose seat number</label>
+    <input type="number" name="numberOfTicketSeat" placeholder="Ticket's seat number">
+    <br/>
+    <label>Choose cost of ticket</label>
+    <input type="number" name="cost" placeholder="Write cost">
+    <br/>
+    <input type="submit" value="Update tickets">
+</form>
+<div><a href="/main">Перейти на главную страницу</a></div>
+</body>
+</html>
