@@ -1,6 +1,7 @@
 package com.example.StadiumsSystem.controller;
 
 import com.example.StadiumsSystem.domain.Event;
+import com.example.StadiumsSystem.domain.Sector;
 import com.example.StadiumsSystem.domain.Ticket;
 import com.example.StadiumsSystem.service.EventService;
 import com.example.StadiumsSystem.service.SectorService;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -65,12 +65,37 @@ public class TicketController {
         return "redirect:/tickets/event/{id}";
     }
 
-    @GetMapping("/ticket-delete/{id}")
-    public String deleteTicket(@PathVariable Integer id) {
-        ticketService.deleteById(id);
-        return "redirect:/tickets";
+    @GetMapping("/ticket-delete/{eventId}/{ticketId}")
+    public String deleteDefinedTicket(@PathVariable Integer eventId, @PathVariable Integer ticketId, Model model) {
+        Event event = ticketService.findById(ticketId).getEventOfTicket();
+        ticketService.deleteById(ticketId);
+        return "redirect:/tickets/event/{eventId}";
     }
 
+    @GetMapping("/ticket-delete/event/{id}")
+    public String getDeleteFormOfSomeTickets(@PathVariable Integer id, Model model) {
+        Event event = eventService.findById(id);
+        model.addAttribute("event", event);
+        model.addAttribute("sectors", sectorService.findSectorsByStadium(event.getStadiumOfEvent()));
+        return "ticket-delete";
+    }
+
+    @PostMapping("/ticket-delete/event/{id}")
+    public String deleteTicket(@PathVariable Integer id,
+                               @RequestParam Integer sectorId,
+                               @RequestParam Integer fromSeatNumber,
+                               @RequestParam Integer toSeatNumber) {
+        Event event = eventService.findById(id);
+        Sector sector = sectorService.findById(sectorId);
+        Ticket ticket;
+        for (int i = fromSeatNumber; i <=toSeatNumber; i++) {
+            ticket = ticketService.findByEventOfTicketAndSectorOfTicketAndSeatNumber(event, sector, i);
+            if (ticket != null) {
+                ticketService.deleteById(ticket.getId());
+            }
+        }
+        return "redirect:/tickets/event/{id}";
+    }
     /*
     @GetMapping("/event-update/{id}")
     public String updateEventForm(@PathVariable("id") Integer id, Model model) {

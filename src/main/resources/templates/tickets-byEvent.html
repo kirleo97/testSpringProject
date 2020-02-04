@@ -26,12 +26,13 @@
                 <td th:text="${ticket.ticketCost}"></td>
                 <td th:text="${ticket.ticketBought}"></td>
                 <td><a th:href="@{/ticket-update/{id}(id=${ticket.id})}">Edit</a></td>
-                <td><a th:href="@{/ticket-delete/{id}(id=${ticket.id})}">Delete</a></td>
+                <td><a th:href="@{/ticket-delete/{eventId}/{ticketId} (eventId=${event.id}, ticketId=${ticket.id}) }">Delete</a></td>
             </tr>
             </tbody>
         </table>
     </div>
-    <p><a th:href="@{/ticket-create/event/{id}(id=${event.id})}">Create ticket</a></p>
+    <p><a th:href="@{/ticket-create/event/{id}(id=${event.id})}">Create tickets</a></p>
+    <p><a th:href="@{/ticket-delete/event/{id} (id=${event.id})}">Delete tickets</a></p>
 </div>
 <div><a href="/main">Перейти на главную страницу</a></div>
 </body>

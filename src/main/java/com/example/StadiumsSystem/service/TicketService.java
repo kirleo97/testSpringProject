@@ -1,6 +1,7 @@
 package com.example.StadiumsSystem.service;
 
 import com.example.StadiumsSystem.domain.Event;
+import com.example.StadiumsSystem.domain.Sector;
 import com.example.StadiumsSystem.domain.Ticket;
 import com.example.StadiumsSystem.repository.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,5 +36,9 @@ public class TicketService {
 
     public List<Ticket> findByEvent(Event event) {
         return ticketRepository.findAllByEventOfTicket(event);
+    }
+
+    public Ticket findByEventOfTicketAndSectorOfTicketAndSeatNumber(Event eventOfTicket, Sector sectorOfTicket, Integer seatNumber) {
+        return ticketRepository.findByEventOfTicketAndSectorOfTicketAndSeatNumber(eventOfTicket, sectorOfTicket, seatNumber);
     }
 }

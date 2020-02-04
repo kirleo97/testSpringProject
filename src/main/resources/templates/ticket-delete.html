@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Ticket</title>
+</head>
+<body>
+<h1>Please, delete some tickets</h1>
+<form action="#" th:action="@{/ticket-delete/event/{id} (id=${event.id})}" method="post">
+    <div th:text="${'Мероприятие: ' + event.eventName}"></div>
+    <div th:text="${'Тип мероприятия: ' + event.eventType.eventTypeName}"></div>
+    <div th:text="${'Дата мероприятия: ' + event.formatDateOfEvent(event.dateOfEvent)}"></div>
+    <br/>
+    <label>Choose seat number you want to delete tickets from</label>
+    <input type="number" name="fromSeatNumber" placeholder="Write number FROM">
+    <br/>
+    <label>Choose seat number you want to delete tickets to</label>
+    <input type="number" name="toSeatNumber" placeholder="Write number TO">
+    <br/>
+    <input type="submit" value="Delete tickets">
+</form>
+<div><a href="/main">Перейти на главную страницу</a></div>
+</body>
+</html>
