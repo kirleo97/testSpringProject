@@ -3,6 +3,7 @@ package com.example.StadiumsSystem.domain;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
+import javax.validation.constraints.Positive;
 
 @Entity
 @Table(name = "sectors")
@@ -20,7 +21,8 @@ public class Sector {
     private String sectorName;
 
     @Column(name = "SECTOR_NUMBER_OF_SEATS", nullable = false)
-    private int numberOfSeats;
+    @Positive
+    private Integer numberOfSeats;
 
     public Sector() {
     }

@@ -31,4 +31,8 @@ public class ManagerService {
     public void deleteById(Integer id) {
         managerRepository.deleteById(id);
     }
+
+    public boolean isManagerWithDefinedNameExist(String managerName) {
+        return managerRepository.findByManagerName(managerName) != null;
+    }
 }

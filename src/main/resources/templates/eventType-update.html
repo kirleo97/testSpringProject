@@ -6,13 +6,24 @@
 </head>
 <body>
 <form action="#" th:action="@{/eventType-update}" th:object="${eventType}" method="post">
-    <label for="id">ID</label>
+    <table>
+        <tr>
+            <td><input readonly type="number" th:field="*{id}" id="id" placeholder="ID"></td>
+            <td>EventType name:</td>
+            <td> <input type="text" th:field="*{eventTypeName}" id="eventTypeName" placeholder="Write name for EventType" /></td>
+            <td th:if="${#fields.hasErrors('eventTypeName')}" th:errors="*{eventTypeName}" th:style="${'color: red;'}">Name Error</td>
+        </tr>
+        <tr>
+            <td><button type="submit">Update EvenType</button></td>
+        </tr>
+    </table>
+    <!--<label for="id">ID</label>
     <input readonly type="number" th:field="*{id}" id="id" placeholder="ID">
     <br/>
     <label for="eventTypeName">Name of EventType</label>
     <input type="text" th:field="*{eventTypeName}" id="eventTypeName" placeholder="Name of EventType">
     <br/>
-    <input type="submit" value="Update EventType">
+    <input type="submit" value="Update EventType">-->
 </form>
 <div><a href="/main">Перейти на главную страницу</a></div>
 </body>

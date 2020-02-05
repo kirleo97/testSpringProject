@@ -3,6 +3,8 @@ package com.example.StadiumsSystem.domain;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 
 @Entity
@@ -22,8 +24,11 @@ public class Ticket {
     private Sector sectorOfTicket;
 
     @Column(name = "TICKET_SEATNUMBER", nullable = false)
-    private int seatNumber;
+    @Positive
+    private Integer seatNumber;
 
+    @DecimalMin(message = "Ticket cost should be positive",
+            value = "0", inclusive = false)
     @Column(name = "TICKET_COST", nullable = false)
     private BigDecimal ticketCost;
 

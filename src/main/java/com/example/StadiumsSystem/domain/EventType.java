@@ -1,8 +1,11 @@
 package com.example.StadiumsSystem.domain;
 
+import org.hibernate.validator.constraints.Length;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "eventTypes")
@@ -12,7 +15,11 @@ public class EventType {
     @Column(name = "EVENTTYPE_ID")
     private Integer id;
 
-    @Column(name = "EVENTTYPE_NAME")
+    @Pattern(message = "Значение должно начинаться с заглавной буквы, после которой должны следовать только строчные. Неправильная форма: ${validatedValue}",
+            regexp = "^[A-Z]{1}[a-z]+$")
+    @Length(min = 2, max = 100)
+    @NotBlank
+    @Column(name = "EVENTTYPE_NAME", nullable = false, unique = true)
     private String eventTypeName;
 
     public EventType() {
