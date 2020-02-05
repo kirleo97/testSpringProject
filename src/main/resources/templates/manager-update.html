@@ -6,13 +6,25 @@
 </head>
 <body>
 <form action="#" th:action="@{/manager-update}" th:object="${manager}" method="post">
-    <label for="id">ID</label>
-    <input readonly type="number" th:field="*{id}" id="id" placeholder="ID">
-    <br/>
-    <label for="managerName">Manager's name</label>
-    <input type="text" th:field="*{managerName}" id="managerName" placeholder="Name of manager">
-    <br/>
-    <input type="submit" value="Update manager">
+    <table>
+        <tr>
+            <td>Manager's ID:</td>
+            <td><input readonly type="number" th:field="*{id}" id="id" placeholder="ID"></td>
+        </tr>
+        <tr>
+            <td>Manager's name:</td>
+            <td> <input type="text" th:field="*{managerName}" id="managerName" placeholder="Write name for Manager" /></td>
+            <td th:if="${#fields.hasErrors('managerName')}" th:errors="*{managerName}" th:style="${'color: red;'}">Name Error</td>
+        </tr>
+        <tr>
+            <td>Manager's telephone number:</td>
+            <td> <input type="text" th:field="*{managerTelephoneNumber}" id="managerTelephoneNumber" placeholder="Write telephone number for Manager" /></td>
+            <td th:if="${#fields.hasErrors('managerTelephoneNumber')}" th:errors="*{managerTelephoneNumber}" th:style="${'color: red;'}">Telephone number Error</td>
+        </tr>
+        <tr>
+            <td><button type="submit">Update Manager</button></td>
+        </tr>
+    </table>
 </form>
 <div><a href="/main">Перейти на главную страницу</a></div>
 </body>

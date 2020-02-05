@@ -4,7 +4,8 @@ import org.hibernate.validator.constraints.Length;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
 @Entity
@@ -15,19 +16,25 @@ public class Manager {
     @Column(name = "MANAGER_ID")
     private Integer id;
 
-    @Pattern(message = "Bad formed manager name: ${validatedValue}",
+    @Pattern(message = "\"Значение должно начинаться с заглавной буквы, после которой должны следовать только строчные. Неправильная форма: ${validatedValue}",
             regexp = "^[A-Z][a-z]*(\\s(([a-z]{1,3})|(([a-z]+\\')?[A-Z][a-z]*)))*$")
     @Length(min = 2, max = 100)
-    @NotNull
+    @NotBlank
     @Column(name = "MANAGER_NAME", nullable = false)
     private String managerName;
+
+    @NotBlank(message = "Поле телефонного номера не может быть пустым!")
+    @Digits(integer = 11, fraction = 0, message = "Введенный номер не соответствует установленной форме")
+    @Column(name = "MANAGER_TELEPHONE_NUMBER", unique = true, nullable = false)
+    private String managerTelephoneNumber;
 
     public Manager() {
     }
 
     @Autowired
-    public Manager(String managerName) {
+    public Manager(String managerName, String managerTelephoneNumber) {
         this.managerName = managerName;
+        this.managerTelephoneNumber = managerTelephoneNumber;
     }
 
     public Integer getId() {
@@ -44,5 +51,13 @@ public class Manager {
 
     public void setManagerName(String managerName) {
         this.managerName = managerName;
+    }
+
+    public String getManagerTelephoneNumber() {
+        return managerTelephoneNumber;
+    }
+
+    public void setManagerTelephoneNumber(String managerTelephoneNumber) {
+        this.managerTelephoneNumber = managerTelephoneNumber;
     }
 }

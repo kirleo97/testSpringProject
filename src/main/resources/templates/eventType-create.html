@@ -8,6 +8,9 @@
 <form action="#" th:action="@{/eventType-create}" th:object="${eventType}" method="post">
     <table>
         <tr>
+            <td><input readonly type="number" th:field="*{id}" id="id" placeholder="ID"></td>
+        </tr>
+        <tr>
             <td>EventType name:</td>
             <td> <input type="text" th:field="*{eventTypeName}" id="eventTypeName" placeholder="Write name for EventType" /></td>
             <td th:if="${#fields.hasErrors('eventTypeName')}" th:errors="*{eventTypeName}" th:style="${'color: red;'}">Name Error</td>

@@ -6,9 +6,21 @@
 </head>
 <body>
 <form action="#" th:action="@{/manager-create}" th:object="${manager}" method="post">
-    <label for="managerName">Manager's name</label>
-    <input type="text" th:field="*{managerName}" id="managerName" placeholder="Write name for Manager">
-    <input type="submit" value="Create manager">
+    <table>
+        <tr>
+            <td>Manager's name:</td>
+            <td> <input type="text" th:field="*{managerName}" id="managerName" placeholder="Write name for Manager" /></td>
+            <td th:if="${#fields.hasErrors('managerName')}" th:errors="*{managerName}" th:style="${'color: red;'}">Name Error</td>
+        </tr>
+        <tr>
+            <td>Manager's telephone number:</td>
+            <td> <input type="text" th:field="*{managerTelephoneNumber}" id="managerTelephoneNumber" placeholder="Write telephone number for Manager" /></td>
+            <td th:if="${#fields.hasErrors('managerTelephoneNumber')}" th:errors="*{managerTelephoneNumber}" th:style="${'color: red;'}">Telephone number Error</td>
+        </tr>
+        <tr>
+            <td><button type="submit">Create Manager</button></td>
+        </tr>
+    </table>
 </form>
 <div><a href="/main">Перейти на главную страницу</a></div>
 </body>

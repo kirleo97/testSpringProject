@@ -36,10 +36,11 @@ public class ManagerController {
     }
 
     @PostMapping("/manager-create")
-    public String createManager(@Valid Manager manager, BindingResult bindingResult, Model model) {
-        //if (managerService.isManagerWithDefinedNameExist())
+    public String createManager(@Valid Manager manager, BindingResult bindingResult) {
+        if (!managerService.isValidationForManagerSuccessful(manager, bindingResult)) {
+            return "manager-create";
+        }
         managerService.saveManager(manager);
-        model.addAttribute("manager", manager);
         return "redirect:/managers";
     }
 
@@ -57,7 +58,10 @@ public class ManagerController {
     }
 
     @PostMapping("/manager-update")
-    public String updateEventType(Manager manager) {
+    public String updateEventType(@Valid Manager manager, BindingResult bindingResult) {
+        if (!managerService.isValidationForManagerSuccessful(manager, bindingResult)) {
+            return "manager-update";
+        }
         managerService.saveManager(manager);
         return "redirect:/managers";
     }

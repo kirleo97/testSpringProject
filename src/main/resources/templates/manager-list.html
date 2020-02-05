@@ -14,12 +14,14 @@
             <tr>
                 <th>Id</th>
                 <th>Name of Manager</th>
+                <th>Manager's telephone number</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="manager : ${managers}">
                 <td th:text="${manager.id}"></td>
                 <td th:text="${manager.managerName}"></td>
+                <td th:text="${manager.managerTelephoneNumber}"></td>
                 <td><a th:href="@{manager-update/{id}(id=${manager.id})}">Edit</a></td>
                 <td><a th:href="@{manager-delete/{id}(id=${manager.id})}">Delete</a></td>
             </tr>
