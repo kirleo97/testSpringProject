@@ -31,7 +31,8 @@ public class ManagerController {
     }
 
     @GetMapping("/manager-create")
-    public String createManagerForm(Manager manager) {
+    public String createManagerForm(Model model) {
+        model.addAttribute("manager", new Manager());
         return "manager-create";
     }
 

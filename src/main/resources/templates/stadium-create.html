@@ -6,14 +6,26 @@
 </head>
 <body>
 <h1>Please, create some Stadium</h1>
-<form action="#" th:action="@{/stadium-create}" method="post">
-    <label>Stadium's name</label>
-    <input type="text" th:field="${stadium.stadiumName}" placeholder="Write name for Stadium">
-    <select th:field="${stadium.eventTypes}" multiple>
-        <option th:each="event : ${events}" th:value="${event.id}" th:text="${event.eventTypeName}">
-        </option>
-    </select>
-    <input type="submit" value="Create stadium">
+<form action="#" th:action="@{/stadium-create}" th:object="${stadium}" method="post">
+    <table>
+        <tr>
+            <td>Stadium's name:</td>
+            <td> <input type="text" th:field="${stadium.stadiumName}" placeholder="Write name for Stadium"></td>
+            <td th:if="${#fields.hasErrors('stadiumName')}" th:errors="${stadium.stadiumName}" th:style="${'color: red;'}">Name Error</td>
+        </tr>
+        <tr>
+            <td>Event types for Stadium:</td>
+            <td>
+                <select th:field="${stadium.eventTypes}" multiple>
+                    <option th:each="event : ${events}" th:value="${event.id}" th:text="${event.eventTypeName}">
+                    </option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><button type="submit">Create EvenType</button></td>
+        </tr>
+    </table>
 </form>
 <div><a href="/main">Перейти на главную страницу</a></div>
 </body>

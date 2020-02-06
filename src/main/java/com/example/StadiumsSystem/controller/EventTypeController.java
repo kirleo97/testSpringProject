@@ -30,7 +30,8 @@ public class EventTypeController {
     }
 
     @GetMapping("/eventType-create")
-    public String createEventTypeForm(EventType eventType) {
+    public String createEventTypeForm(Model model) {
+        model.addAttribute("eventType", new EventType());
         return "eventType-create";
     }
 

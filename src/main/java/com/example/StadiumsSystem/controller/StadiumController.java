@@ -6,10 +6,12 @@ import com.example.StadiumsSystem.service.StadiumService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -38,9 +40,12 @@ public class StadiumController {
     }
 
     @PostMapping("/stadium-create")
-    public String createStadium(Stadium stadium, Model model) {
+    public String createStadium(@Valid Stadium stadium, BindingResult bindingResult, Model model) {
+        model.addAttribute("events", eventTypeService.findAll());
+        if (!stadiumService.isValidationForCreateStadiumSuccessful(stadium, bindingResult)) {
+            return "stadium-create";
+        }
         stadiumService.saveStadium(stadium);
-        model.addAttribute("stadium", stadium);
         return "redirect:/stadiums";
     }
 
@@ -59,7 +64,11 @@ public class StadiumController {
     }
 
     @PostMapping("/stadium-update")
-    public String updateEventType(Stadium stadium) {
+    public String updateStadium(@Valid Stadium stadium, BindingResult bindingResult, Model model) {
+        model.addAttribute("events", eventTypeService.findAll());
+        if (!stadiumService.isValidationForUpdateStadiumSuccessful(stadium, bindingResult)) {
+            return "stadium-update";
+        }
         stadiumService.saveStadium(stadium);
         return "redirect:/stadiums";
     }

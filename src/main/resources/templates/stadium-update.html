@@ -5,18 +5,31 @@
     <title>Update Stadium</title>
 </head>
 <body>
-<form action="#" th:action="@{/stadium-update}" method="post">
-    <label for="id">ID</label>
-    <input readonly type="number" th:field="${stadium.id}" id="id" placeholder="ID">
-    <br/>
-    <label for="stadiumName">Stadium's name</label>
-    <input type="text" th:field="${stadium.stadiumName}" id="stadiumName" placeholder="Name of stadium">
-    <br/>
-    <select th:field="${stadium.eventTypes}" multiple>
-        <option th:each="event : ${events}" th:value="${event.id}" th:text="${event.eventTypeName}">
-        </option>
-    </select>
-    <input type="submit" value="Update stadium">
+<h1>Please, update Stadium</h1>
+<form action="#" th:action="@{/stadium-update}" th:object="${stadium}" method="post">
+    <table>
+        <tr>
+            <td>ID</td>
+            <td><input readonly type="number" th:field="${stadium.id}" id="id" placeholder="ID"></td>
+        </tr>
+        <tr>
+            <td>Stadium's name:</td>
+            <td> <input type="text" th:field="${stadium.stadiumName}" placeholder="Write name for Stadium"></td>
+            <td th:if="${#fields.hasErrors('stadiumName')}" th:errors="${stadium.stadiumName}" th:style="${'color: red;'}">Name Error</td>
+        </tr>
+        <tr>
+            <td>Event types for Stadium:</td>
+            <td>
+                <select th:field="${stadium.eventTypes}" multiple>
+                    <option th:each="event : ${events}" th:value="${event.id}" th:text="${event.eventTypeName}">
+                    </option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><button type="submit">Update Stadium</button></td>
+        </tr>
+    </table>
 </form>
 <div><a href="/main">Перейти на главную страницу</a></div>
 </body>

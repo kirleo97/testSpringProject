@@ -1,9 +1,10 @@
 package com.example.StadiumsSystem.domain;
 
+import org.hibernate.validator.constraints.Length;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Entity
@@ -14,11 +15,11 @@ public class Stadium {
     @Column(name = "STADIUM_ID")
     private Integer id;
 
-    @Size(max = 100)
+    @Length(min = 2, max = 100)
+    @NotBlank
     @Column(name = "STADIUM_NAME", unique = true, nullable = false)
     private String stadiumName;
 
-    @ElementCollection
     @ManyToMany
     @JoinTable(name = "STADIUMS_EVENTTYPES",
     joinColumns = @JoinColumn(name = "STADIUM_ID"),

@@ -6,8 +6,7 @@
 </head>
 <body>
 <div th:switch="${eventTypes}">
-    <h2 th:case="null">No eventTypes found!</h2>
-    <div th:case="*">
+    <div>
         <h2>EventTypes</h2>
         <table>
             <thead>
