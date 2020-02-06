@@ -1,9 +1,15 @@
 package com.example.StadiumsSystem.domain;
 
+import org.hibernate.validator.constraints.Length;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
-import java.time.*;
-import java.time.format.DateTimeFormatter;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "events")
@@ -13,26 +19,37 @@ public class Event {
     @Column(name = "EVENT_ID")
     private Integer id;
 
+    @NotNull
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "EVENT_EVENTTYPE", nullable = false)
     private EventType eventType;
 
+    @NotBlank
+    @Length(min = 2)
     @Column(name = "EVENT_NAME", nullable = false)
     private String eventName;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    @Future(message = "Мероприятие не может быть проведено ранее текущей даты. Пожалуйста, введите другие данные.")
     @Column(name = "EVENT_DATE", nullable = false)
-    private ZonedDateTime dateOfEvent;
+    private LocalDateTime dateOfEvent;
 
+    @NotNull
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "STADIUM_ID", nullable = false)
     private Stadium stadiumOfEvent;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Future(message = "Мероприятие не может быть проведено ранее текущей даты. Пожалуйста, введите другие данные.")
     @Column(name = "event_startOfPreparationOfStadium", nullable = false)
     private LocalDate startOfPreparationOfStadium;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Future(message = "Мероприятие не может быть проведено ранее текущей даты. Пожалуйста, введите другие данные.")
     @Column(name = "event_endOfDismantleOfStadium", nullable = false)
     private LocalDate endOfDismantleOfStadium;
 
+    @NotNull
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "MANAGER_ID", nullable = false)
     private Manager eventManager;
@@ -41,7 +58,7 @@ public class Event {
     }
 
     @Autowired
-    public Event(EventType eventType, String eventName, ZonedDateTime dateOfEvent, Stadium stadiumOfEvent, LocalDate startOfPreparationOfStadium, LocalDate endOfDismantleOfStadium, Manager eventManager) {
+    public Event(EventType eventType, String eventName, LocalDateTime dateOfEvent, Stadium stadiumOfEvent, LocalDate startOfPreparationOfStadium, LocalDate endOfDismantleOfStadium, Manager eventManager) {
         this.eventType = eventType;
         this.eventName = eventName;
         this.dateOfEvent = dateOfEvent;
@@ -75,11 +92,11 @@ public class Event {
         this.eventName = eventName;
     }
 
-    public ZonedDateTime getDateOfEvent() {
+    public LocalDateTime getDateOfEvent() {
         return dateOfEvent;
     }
 
-    public void setDateOfEvent(ZonedDateTime dateOfEvent) {
+    public void setDateOfEvent(LocalDateTime dateOfEvent) {
         this.dateOfEvent = dateOfEvent;
     }
 
@@ -113,27 +130,5 @@ public class Event {
 
     public void setEventManager(Manager eventManager) {
         this.eventManager = eventManager;
-    }
-
-    public ZonedDateTime parseDateOfEventFromDefaultPattern(String dateOfEvent) {
-        return ZonedDateTime.of(LocalDateTime.parse(dateOfEvent, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm")), ZoneId.of("Europe/Moscow"));
-    }
-
-    public LocalDate parseDateOfPreparationPeriodFromDefaultPattern(String dateOfPeriod) {
-        return LocalDate.parse(dateOfPeriod, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-    }
-
-    public String formatDateOfEvent(ZonedDateTime zonedDateTime) {
-        return zonedDateTime.format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm z"));
-    }
-
-    public String formatDateOfPreparationPeriod(LocalDate localDate) {
-        return localDate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
-    }
-
-    public void setAllDatesForEvent(ZonedDateTime dateOfEvent, LocalDate startOfPreparation, LocalDate endOfDismantle) {
-        setDateOfEvent(dateOfEvent);
-        setStartOfPreparationOfStadium(startOfPreparation);
-        setEndOfDismantleOfStadium(endOfDismantle);
     }
 }

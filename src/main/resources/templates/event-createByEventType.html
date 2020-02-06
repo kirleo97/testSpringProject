@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Event</title>
+</head>
+<body>
+<h1>Please, create some Event</h1>
+<form action="#" th:action="@{/event-create/byEventType/{id} (id=${eventType.id})}" method="post">
+    <table>
+        <tr>
+            <td>EventType</td>
+            <td><input readonly type="text" th:value="${eventType.eventTypeName}"></td>
+        </tr>
+        <tr>
+            <td>Event's name:</td>
+            <td> <input type="text" th:field="${event.eventName}" placeholder="Write name for Event"></td>
+        </tr>
+        <tr>
+            <td>Event's date:</td>
+            <td> <input type="datetime-local" th:field="${event.dateOfEvent}" name="date" placeholder="Write date for Event"></td>
+        </tr>
+        <tr>
+            <td>Event's stadium</td>
+            <td>
+                <select th:field="${event.stadiumOfEvent}">
+                    <option th:each="stadium : ${stadiums}" th:value="${stadium.id}" th:text="${stadium.stadiumName}">
+                    </option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Event's start period:</td>
+            <td> <input type="date" th:field="${event.startOfPreparationOfStadium}" name="startOfPreparation" placeholder="Write period of prepare for Event"></td>
+        </tr>
+        <tr>
+            <td>Event's start period:</td>
+            <td> <input type="date" th:field="${event.endOfDismantleOfStadium}" name="endOfDismantle" placeholder="Write period of prepare for Event"></td>
+        </tr>
+        <tr>
+            <td>Event's manager</td>
+            <td>
+                <select th:field="${event.eventManager}">
+                    <option th:each="manager : ${managers}" th:value="${manager.id}" th:text="${manager.managerName}">
+                    </option>
+                </select>
+            </td>
+        </tr>
+            <td><button type="submit">Create Event</button></td>
+        </tr>
+    </table>
+</form>
+<!--<form action="#" th:action="@{/event-create}" method="post">
+    <select th:field="${event.eventType}">
+        <option th:each="eventType : ${eventTypes}" th:value="${eventType.id}" th:text="${eventType.eventTypeName}">
+        </option>
+    </select>
+    <label>Event's name</label>
+    <input type="text" th:field="${event.eventName}" placeholder="Write name for Event">
+    <label>Event's date</label>
+    <input type="datetime-local" name="date" placeholder="Write date for Event">
+    <select th:field="${event.stadiumOfEvent}">
+        <option th:each="stadium : ${}" th:value="${stadium.id}" th:text="${stadium.stadiumName}">
+        </option>
+    </select>
+    <label>Event's period of prepare</label>
+    <input type="date" name="startOfPreparation" placeholder="Write period of prepare for Event">
+    <input type="date" name="endOfDismantle" placeholder="Write period of prepare for Event">
+    <select th:field="${event.eventManager}">
+        <option th:each="manager : ${managers}" th:value="${manager.id}" th:text="${manager.managerName}">
+        </option>
+    </select>
+    <input type="submit" value="Create event">
+</form>-->
+<div><a href="/main">Перейти на главную страницу</a></div>
+</body>
+</html>

@@ -58,4 +58,8 @@ public class StadiumService {
     public boolean isStadiumWithDefinedNameExist(String stadiumName) {
         return stadiumRepository.findByStadiumName(stadiumName) != null;
     }
+
+    public List<Stadium> findAllStadiumsByEventType(EventType eventType) {
+        return stadiumRepository.findAllByEventTypes(eventType);
+    }
 }

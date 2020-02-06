@@ -1,17 +1,18 @@
 package com.example.StadiumsSystem.controller;
 
 import com.example.StadiumsSystem.domain.Event;
+import com.example.StadiumsSystem.domain.EventType;
 import com.example.StadiumsSystem.service.EventService;
 import com.example.StadiumsSystem.service.EventTypeService;
 import com.example.StadiumsSystem.service.ManagerService;
 import com.example.StadiumsSystem.service.StadiumService;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -40,16 +41,29 @@ public class EventController {
 
     @GetMapping("/event-create")
     public String createEventForm(Model model) {
-        model.addAttribute("event", new Event());
-        model.addAttribute("eventTypes", eventTypeService.findAll());
-        model.addAttribute("stadiums", stadiumService.findAll());
-        model.addAttribute("managers", managerService.findAll());
+        model.addAttribute("events", eventTypeService.findAll());
         return "event-create";
     }
 
-    @PostMapping("/event-create")
-    public String createEvent(Event event, @RequestParam String date, @RequestParam String startOfPreparation, @RequestParam String endOfDismantle, Model model) {
-        event.setAllDatesForEvent(event.parseDateOfEventFromDefaultPattern(date), event.parseDateOfPreparationPeriodFromDefaultPattern(startOfPreparation), event.parseDateOfPreparationPeriodFromDefaultPattern(endOfDismantle));
+    /*@PostMapping("/event-create")
+    public String createEventForm(EventType eventType, Model model) {
+        Integer id = eventType.getId();
+        return "redirect:/event-create/byEventType/{id}";
+    }*/
+
+    @GetMapping("/event-create/byEventType/{id}")
+    public String createEventByEventTypeForm(@PathVariable Integer id, Model model) {
+        model.addAttribute("event", new Event());
+        EventType eventType = eventTypeService.findById(id);
+        model.addAttribute("eventType", eventType);
+        model.addAttribute("stadiums", stadiumService.findAllStadiumsByEventType(eventType));
+        model.addAttribute("managers", managerService.findAll());
+        return "event-createByEventType";
+    }
+
+    @PostMapping("/event-create/byEventType/{id}")
+    public String createEventByEventTypeForm(@PathVariable Integer id, Event event) {
+        event.setEventType(eventTypeService.findById(id));
         eventService.saveEvent(event);
         return "redirect:/events";
     }
@@ -73,8 +87,8 @@ public class EventController {
     }
 
     @PostMapping("/event-update")
-    public String updateEvent(Event event, @RequestParam String date, @RequestParam String startOfPreparation, @RequestParam String endOfDismantle) {
-        event.setAllDatesForEvent(event.parseDateOfEventFromDefaultPattern(date), event.parseDateOfPreparationPeriodFromDefaultPattern(startOfPreparation), event.parseDateOfPreparationPeriodFromDefaultPattern(endOfDismantle));
+    public String updateEvent(Event event) {
+        //event.setAllDatesForEvent(event.parseDateOfEventFromDefaultPattern(date), event.parseDateOfPreparationPeriodFromDefaultPattern(startOfPreparation), event.parseDateOfPreparationPeriodFromDefaultPattern(endOfDismantle));
         eventService.saveEvent(event);
         return "redirect:/events";
     }
