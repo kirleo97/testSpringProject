@@ -6,19 +6,31 @@
 </head>
 <body>
 <h1>Please, create some Event</h1>
-<form action="#" th:action="@{/event-create/byEventType/{id} (id=${eventType.id})}" method="post">
+<form action="#" th:action="@{/event-create/byEventType}" th:object="${typeOfEvent}" method="post">
     <table>
-        <tr>
+        <!--<tr>
             <td>EventType</td>
-            <td><input readonly type="text" th:value="${eventType.eventTypeName}"></td>
+            <td><input readonly type="text" th:="${event.eventType}" th:value="${eventType}" th:text="${eventType.eventTypeName}"></td>
+            <td th:if="${#fields.hasErrors('eventType')}" th:errors="*{eventType}" th:style="${'color: red;'}">EventType Error</td>
+        </tr>-->
+        <tr>
+            <td>
+                <select th:field="${event.eventType}">
+                    <option th:each="ev : ${eventTypes}" th:value="${ev.id}" th:text="${ev.eventTypeName}">
+                    </option>
+                </select>
+            </td>
+            <td th:if="${#fields.hasErrors('stadiumOfEvent')}" th:errors="*{stadiumOfEvent}" th:style="${'color: red;'}">Event's stadium Error</td>
         </tr>
         <tr>
             <td>Event's name:</td>
             <td> <input type="text" th:field="${event.eventName}" placeholder="Write name for Event"></td>
+            <td th:if="${#fields.hasErrors('eventName')}" th:errors="*{eventName}" th:style="${'color: red;'}">Event's name Error</td>
         </tr>
         <tr>
             <td>Event's date:</td>
             <td> <input type="datetime-local" th:field="${event.dateOfEvent}" name="date" placeholder="Write date for Event"></td>
+            <td th:if="${#fields.hasErrors('dateOfEvent')}" th:errors="*{dateOfEvent}" th:style="${'color: red;'}">Event's date Error</td>
         </tr>
         <tr>
             <td>Event's stadium</td>
@@ -28,14 +40,17 @@
                     </option>
                 </select>
             </td>
+            <td th:if="${#fields.hasErrors('stadiumOfEvent')}" th:errors="*{stadiumOfEvent}" th:style="${'color: red;'}">Event's stadium Error</td>
         </tr>
         <tr>
-            <td>Event's start period:</td>
+            <td>Event's start of preparation period:</td>
             <td> <input type="date" th:field="${event.startOfPreparationOfStadium}" name="startOfPreparation" placeholder="Write period of prepare for Event"></td>
+            <td th:if="${#fields.hasErrors('startOfPreparationOfStadium')}" th:errors="*{startOfPreparationOfStadium}" th:style="${'color: red;'}">Event's start of period Error</td>
         </tr>
         <tr>
-            <td>Event's start period:</td>
+            <td>Event's end of dismantle period:</td>
             <td> <input type="date" th:field="${event.endOfDismantleOfStadium}" name="endOfDismantle" placeholder="Write period of prepare for Event"></td>
+            <td th:if="${#fields.hasErrors('endOfDismantleOfStadium')}" th:errors="*{endOfDismantleOfStadium}" th:style="${'color: red;'}">Event's end of period Error</td>
         </tr>
         <tr>
             <td>Event's manager</td>
@@ -45,7 +60,9 @@
                     </option>
                 </select>
             </td>
+            <td th:if="${#fields.hasErrors('eventManager')}" th:errors="*{eventManager}" th:style="${'color: red;'}">Event's manager Error</td>
         </tr>
+        <tr>
             <td><button type="submit">Create Event</button></td>
         </tr>
     </table>

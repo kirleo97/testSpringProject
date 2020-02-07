@@ -20,7 +20,7 @@
             <tr th:each="event : ${events}">
                 <td><a th:href="@{tickets/event/{id}(id=${event.id})}" th:text="${event.eventName}"></a></td>
                 <td th:text="${event.eventType.eventTypeName}"></td>
-                <td th:text="${event.formatDateOfEvent(event.dateOfEvent)}"></td>
+                <td th:text="${event.dateOfEvent}"></td>
                 <td th:text="${event.stadiumOfEvent.stadiumName}"></td>
             </tr>
             </tbody>

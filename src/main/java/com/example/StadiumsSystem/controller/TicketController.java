@@ -59,7 +59,7 @@ public class TicketController {
                               @RequestParam Integer fromSeatNumber,
                               @RequestParam Integer toSeatNumber,
                               @RequestParam Integer cost) {
-        for (int i = fromSeatNumber; i <=toSeatNumber; i++) {
+        for (int i = fromSeatNumber; i <= toSeatNumber; i++) {
             ticketService.saveTicket(new Ticket(eventService.findById(id), sectorService.findById(sectorId), i, new BigDecimal(cost)));
         }
         return "redirect:/tickets/event/{id}";

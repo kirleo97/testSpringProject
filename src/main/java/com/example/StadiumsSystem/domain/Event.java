@@ -29,6 +29,7 @@ public class Event {
     @Column(name = "EVENT_NAME", nullable = false)
     private String eventName;
 
+    @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     @Future(message = "Мероприятие не может быть проведено ранее текущей даты. Пожалуйста, введите другие данные.")
     @Column(name = "EVENT_DATE", nullable = false)
@@ -39,13 +40,15 @@ public class Event {
     @JoinColumn(name = "STADIUM_ID", nullable = false)
     private Stadium stadiumOfEvent;
 
+    @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Future(message = "Мероприятие не может быть проведено ранее текущей даты. Пожалуйста, введите другие данные.")
+    @Future(message = "Подготовка к мероприятию не может начаться ранее текущей даты. Пожалуйста, введите другие данные.")
     @Column(name = "event_startOfPreparationOfStadium", nullable = false)
     private LocalDate startOfPreparationOfStadium;
 
+    @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Future(message = "Мероприятие не может быть проведено ранее текущей даты. Пожалуйста, введите другие данные.")
+    @Future(message = "Демонтаж арены не может быть завершен ранее текущей даты. Пожалуйста, введите другие данные.")
     @Column(name = "event_endOfDismantleOfStadium", nullable = false)
     private LocalDate endOfDismantleOfStadium;
 

@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>Please, create some Ticket</h1>
-<form action="#" th:action="@{/ticket-create/event/{id} (id=${event.id})}" method="post">
+<form action="#" th:action="@{/ticket-create/event/{id} (id=${eventid})}" method="post">
     <div th:text="${'Мероприятие: ' + event.eventName}"></div>
     <div th:text="${'Тип мероприятия: ' + event.eventType.eventTypeName}"></div>
     <div th:text="${'Дата мероприятия: ' + event.formatDateOfEvent(event.dateOfEvent)}"></div>

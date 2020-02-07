@@ -58,4 +58,9 @@ public class Stadium {
     public void setEventTypes(List<EventType> eventTypes) {
         this.eventTypes = eventTypes;
     }
+
+    @Override
+    public String toString() {
+        return stadiumName;
+    }
 }
