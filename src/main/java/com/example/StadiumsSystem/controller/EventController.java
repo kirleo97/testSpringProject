@@ -39,20 +39,6 @@ public class EventController {
         return "event-list";
     }
 
-
-    /*@GetMapping("/event-create")
-    public String createEventForm(Model model) {
-        model.addAttribute("events", eventTypeService.findAll());
-        return "event-create";
-    }
-
-    @PostMapping("/event-create")
-    public String createEventForm(EventType typeOfEvent, Model model) {
-        model.addAttribute("typeOfEvent", typeOfEvent);
-        //return "event-createByEventType";
-        return "redirect:/event-create/byEventType";
-    }*/
-
     @GetMapping("/event-create")
     public String createEventForm(Model model) {
         model.addAttribute("event", new Event());
@@ -90,8 +76,7 @@ public class EventController {
 
     @GetMapping("/event-update/{id}")
     public String updateEventForm(@PathVariable("id") Integer id, Model model) {
-        Event event = eventService.findById(id);
-        model.addAttribute("event", event);
+        model.addAttribute("event", eventService.findById(id));
         model.addAttribute("typesOfEvent", eventTypeService.findAll());
         model.addAttribute("stadiums", stadiumService.findAll());
         model.addAttribute("managers", managerService.findAll());
@@ -99,8 +84,20 @@ public class EventController {
     }
 
     @PostMapping("/event-update")
-    public String updateEvent(Event event) {
-        //event.setAllDatesForEvent(event.parseDateOfEventFromDefaultPattern(date), event.parseDateOfPreparationPeriodFromDefaultPattern(startOfPreparation), event.parseDateOfPreparationPeriodFromDefaultPattern(endOfDismantle));
+    public String updateEvent(@Valid Event event, BindingResult bindingResult, Model model) {
+        model.addAttribute("typesOfEvent", eventTypeService.findAll());
+        model.addAttribute("stadiums", stadiumService.findAll());
+        model.addAttribute("managers", managerService.findAll());
+        if (bindingResult.hasErrors()) {
+            return "event-update";
+        }
+        eventService.checkValidationFormForEvent(event, bindingResult);
+        if (!event.getStadiumOfEvent().getEventTypes().contains(event.getEventType())) {
+            bindingResult.addError(new FieldError("event", "stadiumOfEvent", "У выбранного стадиона нет такого вида мероприятия. Возможные стадионы для данного вида мероприятия: " + stadiumService.findAllStadiumsByEventType(event.getEventType())));
+        }
+        if (bindingResult.hasErrors()) {
+            return "event-update";
+        }
         eventService.saveEvent(event);
         return "redirect:/events";
     }

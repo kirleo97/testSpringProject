@@ -1,8 +1,6 @@
 package com.example.StadiumsSystem.service;
 
 import com.example.StadiumsSystem.domain.Event;
-import com.example.StadiumsSystem.domain.EventType;
-import com.example.StadiumsSystem.domain.Stadium;
 import com.example.StadiumsSystem.repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,10 +36,6 @@ public class EventService {
         eventRepository.deleteById(id);
     }
 
-    public List<Stadium> findAllStadiumByEventType(EventType eventType) {
-        return eventRepository.findAllByEventType(eventType);
-    }
-
     public void checkIfDateOfEventIsInPeriodOfPreparationAndDismantle(Event event, BindingResult bindingResult) {
         LocalDate dateOfEvent = LocalDate.from(event.getDateOfEvent());
         if (dateOfEvent.isBefore(event.getStartOfPreparationOfStadium()) || dateOfEvent.isAfter(event.getEndOfDismantleOfStadium())) {
@@ -57,6 +51,10 @@ public class EventService {
 
     public void checkIfPerionOfEventIsNotIntersectWithOtherEventsOfStadium(Event checkEvent, BindingResult bindingResult) {
         List<Event> otherEventsByStadium = eventRepository.findAllByStadiumOfEvent(checkEvent.getStadiumOfEvent());
+        if (checkEvent.getId() != null) {
+            Event event = findById(checkEvent.getId());
+            otherEventsByStadium.remove(event);
+        }
         LocalDate startOfCheckEvent = checkEvent.getStartOfPreparationOfStadium();
         LocalDate endOfCheckEvent = checkEvent.getEndOfDismantleOfStadium();
         LocalDate startOfOtherEvent;
