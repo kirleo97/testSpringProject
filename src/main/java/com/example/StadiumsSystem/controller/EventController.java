@@ -67,17 +67,15 @@ public class EventController {
         model.addAttribute("eventTypes", eventTypeService.findAll());
         model.addAttribute("stadiums", stadiumService.findAll());
         model.addAttribute("managers", managerService.findAll());
+        model.addAttribute("event", event);
         if (bindingResult.hasErrors()) {
             return "event-create";
         }
+        eventService.checkValidationFormForEvent(event, bindingResult);
         if (!event.getStadiumOfEvent().getEventTypes().contains(event.getEventType())) {
             bindingResult.addError(new FieldError("event", "stadiumOfEvent", "У выбранного стадиона нет такого вида мероприятия. Возможные стадионы для данного вида мероприятия: " + stadiumService.findAllStadiumsByEventType(event.getEventType())));
-            return "event-create";
         }
-        boolean firstCondition = eventService.isDateOfEventInPeriodOfPreparationAndDismantle(event, bindingResult);
-        boolean secondCondition = eventService.isPerionOfEventNotIntersectWithOtherEventsOfStadium(event, event.getStadiumOfEvent(), bindingResult);
-        boolean thirdCondition = eventService.isStartOfPreparationBeforeEndOfDismantleOrEquals(event, bindingResult);
-        if (!firstCondition || !secondCondition || !thirdCondition || bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             return "event-create";
         }
         eventService.saveEvent(event);
