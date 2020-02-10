@@ -5,27 +5,46 @@
     <title>Create Ticket</title>
 </head>
 <body>
-<h1>Please, create some Ticket</h1>
-<form action="#" th:action="@{/ticket-create/event/{id} (id=${eventid})}" method="post">
-    <div th:text="${'Мероприятие: ' + event.eventName}"></div>
-    <div th:text="${'Тип мероприятия: ' + event.eventType.eventTypeName}"></div>
-    <div th:text="${'Дата мероприятия: ' + event.formatDateOfEvent(event.dateOfEvent)}"></div>
-    <label>Choose sector</label>
-    <select name="sectorId">
-        <option th:each="sector : ${sectors}" th:value="${sector.id}" th:text="${sector.sectorName}">
-        </option>
-    </select>
-    <br/>
-    <label>Choose seat number you want to create tickets from</label>
-    <input type="number" name="fromSeatNumber" placeholder="Write number FROM">
-    <br/>
-    <label>Choose seat number you want to create tickets to</label>
-    <input type="number" name="toSeatNumber" placeholder="Write number TO">
-    <br/>
-    <label>Choose cost of ticket</label>
-    <input type="number" name="cost" placeholder="Write cost">
-    <br/>
-    <input type="submit" value="Create tickets">
+<h1>Please, create some Tickets</h1>
+<form action="#" th:action="@{/ticket-create/event/{id} (id=${IdOfEvent})}" method="post">
+    <table>
+        <tr>
+            <td>Название мероприятия:</td>
+            <td th:text="${event.eventName}"></td>
+        </tr>
+        <tr>
+            <td>Тип мероприятия:</td>
+            <td th:text="${event.eventType}"></td>
+        </tr>
+        <tr>
+            <td>Дата мероприятия:</td>
+            <td th:text="${#temporals.format(event.dateOfEvent, 'dd.MM.yyyy HH:mm')}"></td>
+        </tr>
+        <tr>
+            <td>Выберете сектор билета:</td>
+            <td>
+                <select name="sectorId">
+                    <option th:each="sector : ${sectors}" th:value="${sector.id}" th:text="${sector.sectorName}">
+                    </option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Введите номер места, с которого вы хотите создать билеты</td>
+            <td><input type="number" name="fromSeatNumber" placeholder="Write number FROM"></td>
+        </tr>
+        <tr>
+            <td>Введите номер места, до которого вы хотите создать билеты</td>
+            <td><input type="number" name="toSeatNumber" placeholder="Write number TO"></td>
+        </tr>
+        <tr>
+            <td>Введите цену билетов</td>
+            <td><input type="number" name="cost" placeholder="Write cost"></td>
+        </tr>
+        <tr>
+            <td><button type="submit">Create Tickets</button></td>
+        </tr>
+    </table>
 </form>
 <div><a href="/main">Перейти на главную страницу</a></div>
 </body>

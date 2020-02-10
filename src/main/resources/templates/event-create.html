@@ -8,11 +8,6 @@
 <h1>Please, create some Event</h1>
 <form action="#" th:action="@{/event-create}" th:object="${event}" method="post">
     <table>
-        <!--<tr>
-            <td>EventType</td>
-            <td><input readonly type="text" th:="${event.eventType}" th:value="${eventType}" th:text="${eventType.eventTypeName}"></td>
-            <td th:if="${#fields.hasErrors('eventType')}" th:errors="*{eventType}" th:style="${'color: red;'}">EventType Error</td>
-        </tr>-->
         <tr>
             <td>
                 <select th:field="${event.eventType}">

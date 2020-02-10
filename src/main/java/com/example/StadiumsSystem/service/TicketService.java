@@ -41,4 +41,27 @@ public class TicketService {
     public Ticket findByEventOfTicketAndSectorOfTicketAndSeatNumber(Event eventOfTicket, Sector sectorOfTicket, Integer seatNumber) {
         return ticketRepository.findByEventOfTicketAndSectorOfTicketAndSeatNumber(eventOfTicket, sectorOfTicket, seatNumber);
     }
+
+    public int ckeckFromSeatNumber(int fromSeatNumber) {
+        return fromSeatNumber <= 0 ? 1 : fromSeatNumber;
+    }
+
+    public int ckeckToSeatNumber(int toSeatNumber, Sector sector) {
+        int sectorNumberOfSeats = sector.getNumberOfSeats();
+        return toSeatNumber > sectorNumberOfSeats ? sectorNumberOfSeats : toSeatNumber;
+    }
+
+    public int checkCost(int cost) {
+        return cost < 0 ? 0 : cost;
+    }
+
+    public boolean isTicketWithEventAndSectorAndNumberExist(Event event, Sector sector, Integer seatNumber) {
+        return findByEventOfTicketAndSectorOfTicketAndSeatNumber(event, sector, seatNumber) != null ? true : false;
+    }
+
+    public int checkSeatNumber(Sector sector, int seatNumber) {
+        seatNumber = seatNumber <= 0 ? 1 : seatNumber;
+        int maxNumberOfSeats = sector.getNumberOfSeats();
+        return seatNumber > maxNumberOfSeats ? maxNumberOfSeats : seatNumber;
+    }
 }

@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class TicketController {
@@ -41,8 +41,8 @@ public class TicketController {
     public String getTicketsByEvent(@PathVariable Integer id, Model model) {
         Event event = eventService.findById(id);
         model.addAttribute("event", event);
-        List<Ticket> tickets = ticketService.findAllByEvent(event);
-        model.addAttribute("tickets", tickets);
+        model.addAttribute("tickets", ticketService.findAllByEvent(event));
+        model.addAttribute("IdOfEvent", id);
         return "tickets-byEvent";
     }
 
@@ -50,6 +50,7 @@ public class TicketController {
     public String createTicketForm(@PathVariable Integer id, Model model) {
         Event event = eventService.findById(id);
         model.addAttribute("event", event);
+        model.addAttribute("IdOfEvent", id);
         model.addAttribute("sectors", sectorService.findSectorsByStadium(event.getStadiumOfEvent()));
         return "ticket-create";
     }
@@ -57,11 +58,22 @@ public class TicketController {
     @PostMapping("/ticket-create/event/{id}")
     public String createEvent(@PathVariable Integer id,
                               @RequestParam Integer sectorId,
-                              @RequestParam Integer fromSeatNumber,
+                              @Valid @RequestParam Integer fromSeatNumber,
                               @RequestParam Integer toSeatNumber,
-                              @RequestParam Integer cost) {
+                              @RequestParam Integer cost,
+                              Model model) {
+        model.addAttribute("IdOfEvent", id);
+        Event event = eventService.findById(id);
+        Sector sector = sectorService.findById(sectorId);
+        fromSeatNumber = ticketService.ckeckFromSeatNumber(fromSeatNumber);
+        toSeatNumber = ticketService.ckeckToSeatNumber(toSeatNumber, sector);
+        cost = ticketService.checkCost(cost);
+        Ticket ticket;
         for (int i = fromSeatNumber; i <= toSeatNumber; i++) {
-            ticketService.saveTicket(new Ticket(eventService.findById(id), sectorService.findById(sectorId), i, new BigDecimal(cost)));
+            if (!ticketService.isTicketWithEventAndSectorAndNumberExist(event, sector, i)) {
+                ticket = new Ticket(event, sector, i, new BigDecimal(cost));
+                ticketService.saveTicket(ticket);
+            }
         }
         return "redirect:/tickets/event/{id}";
     }
@@ -75,6 +87,7 @@ public class TicketController {
     @GetMapping("/ticket-delete/event/{id}")
     public String getDeleteFormOfSomeTickets(@PathVariable Integer id, Model model) {
         Event event = eventService.findById(id);
+        model.addAttribute("IdOfEvent", id);
         model.addAttribute("event", event);
         model.addAttribute("sectors", sectorService.findSectorsByStadium(event.getStadiumOfEvent()));
         return "ticket-delete";
@@ -82,13 +95,17 @@ public class TicketController {
 
     @PostMapping("/ticket-delete/event/{id}")
     public String deleteSomeTickets(@PathVariable Integer id,
-                               @RequestParam Integer sectorId,
-                               @RequestParam Integer fromSeatNumber,
-                               @RequestParam Integer toSeatNumber) {
-        Event event = eventService.findById(id);
+                                    @RequestParam Integer sectorId,
+                                    @RequestParam Integer fromSeatNumber,
+                                    @RequestParam Integer toSeatNumber,
+                                    Model model) {
+        model.addAttribute("IdOfEvent", id);
         Sector sector = sectorService.findById(sectorId);
+        Event event = eventService.findById(id);
+        fromSeatNumber = ticketService.ckeckFromSeatNumber(fromSeatNumber);
+        toSeatNumber = ticketService.ckeckToSeatNumber(toSeatNumber, sector);
         Ticket ticket;
-        for (int i = fromSeatNumber; i <=toSeatNumber; i++) {
+        for (int i = fromSeatNumber; i <= toSeatNumber; i++) {
             ticket = ticketService.findByEventOfTicketAndSectorOfTicketAndSeatNumber(event, sector, i);
             if (ticket != null) {
                 ticketService.deleteById(ticket.getId());
@@ -100,6 +117,8 @@ public class TicketController {
     @GetMapping("/ticket-update/event/{eventId}/{ticketId}")
     public String updateTicketForm(@PathVariable Integer eventId, @PathVariable Integer ticketId, Model model) {
         Event event = eventService.findById(eventId);
+        model.addAttribute("IdOfEvent", eventId);
+        model.addAttribute("IdOfTicket", ticketId);
         model.addAttribute("event", event);
         model.addAttribute("ticket", ticketService.findById(ticketId));
         model.addAttribute("sectors", sectorService.findSectorsByStadium(event.getStadiumOfEvent()));
@@ -111,13 +130,17 @@ public class TicketController {
                               @PathVariable Integer ticketId,
                               @RequestParam Integer sectorId,
                               @RequestParam Integer numberOfTicketSeat,
-                              @RequestParam Integer cost) {
-        Event event = eventService.findById(eventId);
+                              @RequestParam Integer cost,
+                              Model model) {
         Sector sector = sectorService.findById(sectorId);
         Ticket ticket = ticketService.findById(ticketId);
-        if (ticketService.findByEventOfTicketAndSectorOfTicketAndSeatNumber(event, sector, numberOfTicketSeat) != null) {
+        model.addAttribute("IdOfEvent", eventId);
+        model.addAttribute("IdOfTicket", ticketId);
+        if (ticketService.findByEventOfTicketAndSectorOfTicketAndSeatNumber(eventService.findById(eventId), sector, numberOfTicketSeat) != null) {
             return "redirect:/tickets/event/{eventId}";
         }
+        cost = ticketService.checkCost(cost);
+        numberOfTicketSeat = ticketService.checkSeatNumber(sector, numberOfTicketSeat);
         ticket.setSectorOfTicket(sector);
         ticket.setSeatNumber(numberOfTicketSeat);
         ticket.setTicketCost(new BigDecimal(cost));
@@ -126,7 +149,9 @@ public class TicketController {
     }
 
     @PostMapping("/ticket-buy/{eventId}/{ticketId}")
-    public String buyTicket(@PathVariable Integer eventId, @PathVariable Integer ticketId) {
+    public String buyTicket(@PathVariable Integer eventId, @PathVariable Integer ticketId, Model model) {
+        model.addAttribute("IdOfEvent", eventId);
+        model.addAttribute("IdOfTicket", ticketId);
         Ticket ticket = ticketService.findById(ticketId);
         ticket.setTicketBought(true);
         ticketService.saveTicket(ticket);

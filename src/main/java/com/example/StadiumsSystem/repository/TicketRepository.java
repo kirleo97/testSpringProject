@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface TicketRepository extends JpaRepository<Ticket, Integer> {
     List<Ticket> findAllByEventOfTicket(Event eventOfTicket);
+    List<Ticket> findAllByEventOfTicketAndSectorOfTicket(Event eventOfTicket, Sector sectorOfTicket);
     Ticket findByEventOfTicketAndSectorOfTicketAndSeatNumber(Event eventOfTicket, Sector sectorOfTicket, Integer seatNumber);
     void deleteByEventOfTicketAndSectorOfTicketAndSeatNumber(Event eventOfTicket, Sector sectorOfTicket, Integer seatNumber);
 }

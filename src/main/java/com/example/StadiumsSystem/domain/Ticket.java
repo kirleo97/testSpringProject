@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 
@@ -15,20 +16,24 @@ public class Ticket {
     @Column(name = "TICKET_ID")
     private Integer id;
 
+    @NotNull
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "TICKET_EVENT", nullable = false)
     private Event eventOfTicket;
 
+    @NotNull
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "TICKET_SECTOR", nullable = false)
     private Sector sectorOfTicket;
 
+    @NotNull
     @Column(name = "TICKET_SEATNUMBER", nullable = false)
     @Positive
     private Integer seatNumber;
 
+    @NotNull
     @DecimalMin(message = "Ticket cost should be positive",
-            value = "0", inclusive = false)
+            value = "0")
     @Column(name = "TICKET_COST", nullable = false)
     private BigDecimal ticketCost;
 
@@ -63,9 +68,7 @@ public class Ticket {
         this.eventOfTicket = eventOfTicket;
     }
 
-    public Sector getSectorOfTicket() {
-        return sectorOfTicket;
-    }
+    public Sector getSectorOfTicket() { return sectorOfTicket; }
 
     public void setSectorOfTicket(Sector sectorOfTicket) {
         this.sectorOfTicket = sectorOfTicket;
