@@ -21,7 +21,7 @@ public class EventService {
     }
 
     public Event findById(Integer id) {
-        return eventRepository.getOne(id);
+        return eventRepository.findById(id).orElse(null);
     }
 
     public List<Event> findAll() {
@@ -49,7 +49,7 @@ public class EventService {
         }
     }
 
-    public void checkIfPerionOfEventIsNotIntersectWithOtherEventsOfStadium(Event checkEvent, BindingResult bindingResult) {
+    public void checkIfPeriodOfEventIsNotIntersectWithOtherEventsOfStadium(Event checkEvent, BindingResult bindingResult) {
         List<Event> otherEventsByStadium = eventRepository.findAllByStadiumOfEvent(checkEvent.getStadiumOfEvent());
         if (checkEvent.getId() != null) {
             Event event = findById(checkEvent.getId());
@@ -80,7 +80,7 @@ public class EventService {
 
     public void checkValidationFormForEvent(Event event, BindingResult bindingResult) {
         checkIfDateOfEventIsInPeriodOfPreparationAndDismantle(event, bindingResult);
-        checkIfPerionOfEventIsNotIntersectWithOtherEventsOfStadium(event, bindingResult);
+        checkIfPeriodOfEventIsNotIntersectWithOtherEventsOfStadium(event, bindingResult);
         checkIfStartOfPreparationIsBeforeEndOfDismantleOrEquals(event, bindingResult);
     }
 }

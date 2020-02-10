@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 public class EventController {
@@ -34,8 +33,7 @@ public class EventController {
 
     @GetMapping("/events")
     public String findAll(Model model) {
-        List<Event> events = eventService.findAll();
-        model.addAttribute("events", events);
+        model.addAttribute("events", eventService.findAll());
         return "event-list";
     }
 
@@ -91,10 +89,10 @@ public class EventController {
         if (bindingResult.hasErrors()) {
             return "event-update";
         }
-        eventService.checkValidationFormForEvent(event, bindingResult);
         if (!event.getStadiumOfEvent().getEventTypes().contains(event.getEventType())) {
             bindingResult.addError(new FieldError("event", "stadiumOfEvent", "У выбранного стадиона нет такого вида мероприятия. Возможные стадионы для данного вида мероприятия: " + stadiumService.findAllStadiumsByEventType(event.getEventType())));
         }
+        eventService.checkValidationFormForEvent(event, bindingResult);
         if (bindingResult.hasErrors()) {
             return "event-update";
         }

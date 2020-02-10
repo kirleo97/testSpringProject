@@ -5,10 +5,12 @@ import com.example.StadiumsSystem.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -24,8 +26,7 @@ public class SectorController {
 
     @GetMapping("/sectors")
     public String findAll(Model model) {
-        List<Sector> sectors = sectorService.findAll();
-        model.addAttribute("sectors", sectors);
+        model.addAttribute("sectors", sectorService.findAll());
         return "sector-list";
     }
 
@@ -37,7 +38,16 @@ public class SectorController {
     }
 
     @PostMapping("/sector-create")
-    public String createSector(Sector sector, Model model) {
+    public String createSector(@Valid Sector sector, BindingResult bindingResult, Model model) {
+        model.addAttribute("stadiums", stadiumService.findAll());
+        model.addAttribute("sector", sector);
+        if (bindingResult.hasErrors()) {
+            return "sector-create";
+        }
+        sectorService.checkValidationForSector(sector, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return "sector-create";
+        }
         sectorService.saveSector(sector);
         return "redirect:/sectors";
     }
@@ -50,14 +60,22 @@ public class SectorController {
 
     @GetMapping("/sector-update/{id}")
     public String updateSectorForm(@PathVariable("id") Integer id, Model model) {
-        Sector sector = sectorService.findById(id);
-        model.addAttribute("sector", sector);
+        model.addAttribute("sector", sectorService.findById(id));
         model.addAttribute("stadiums", stadiumService.findAll());
         return "sector-update";
     }
 
     @PostMapping("/sector-update")
-    public String updateSector(Sector sector) {
+    public String updateSector(@Valid Sector sector, BindingResult bindingResult, Model model) {
+        model.addAttribute("sector", sector);
+        model.addAttribute("stadiums", stadiumService.findAll());
+        if (bindingResult.hasErrors()) {
+            return "sector-update";
+        }
+        sectorService.checkValidationForSector(sector, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return "sector-update";
+        }
         sectorService.saveSector(sector);
         return "redirect:/sectors";
     }

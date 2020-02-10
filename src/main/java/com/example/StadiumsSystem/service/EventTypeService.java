@@ -19,7 +19,7 @@ public class EventTypeService {
     }
 
     public EventType findById(Integer id) {
-        return eventTypeRepository.getOne(id);
+        return eventTypeRepository.findById(id).orElse(null);
     }
 
     public List<EventType> findAll() {

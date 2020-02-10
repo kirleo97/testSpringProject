@@ -3,6 +3,8 @@ package com.example.StadiumsSystem.domain;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 @Entity
@@ -13,13 +15,16 @@ public class Sector {
     @Column(name = "SECTOR_ID")
     private Integer id;
 
+    @NotNull
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "STADIUM_ID", nullable = false)
     private Stadium stadium;
 
+    @NotBlank
     @Column(name = "SECTOR_NAME", nullable = false)
     private String sectorName;
 
+    @NotNull
     @Column(name = "SECTOR_NUMBER_OF_SEATS", nullable = false)
     @Positive
     private Integer numberOfSeats;
@@ -58,11 +63,11 @@ public class Sector {
         this.sectorName = sectorName;
     }
 
-    public int getNumberOfSeats() {
+    public Integer getNumberOfSeats() {
         return numberOfSeats;
     }
 
-    public void setNumberOfSeats(int numberOfSeats) {
+    public void setNumberOfSeats(Integer numberOfSeats) {
         this.numberOfSeats = numberOfSeats;
     }
 }

@@ -20,7 +20,7 @@ public class StadiumService {
     }
 
     public Stadium findById(Integer id) {
-        return stadiumRepository.getOne(id);
+        return stadiumRepository.findById(id).orElse(null);
     }
 
     public List<Stadium> findAll() {

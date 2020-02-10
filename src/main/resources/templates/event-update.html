@@ -7,11 +7,6 @@
 <body>
 <form action="#" th:action="@{/event-update}" th:object="${event}" method="post">
     <table>
-        <!--<tr>
-            <td>EventType</td>
-            <td><input readonly type="text" th:="${event.eventType}" th:value="${eventType}" th:text="${eventType.eventTypeName}"></td>
-            <td th:if="${#fields.hasErrors('eventType')}" th:errors="*{eventType}" th:style="${'color: red;'}">EventType Error</td>
-        </tr>-->
         <tr>
             <td>ID</td>
             <td><input readonly type="number" th:field="${event.id}" id="id" placeholder="ID"></td>

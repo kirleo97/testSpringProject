@@ -20,7 +20,7 @@ public class ManagerService {
     }
 
     public Manager findById(Integer id) {
-        return managerRepository.getOne(id);
+        return managerRepository.findById(id).orElse(null);
     }
 
     public List<Manager> findAll() {

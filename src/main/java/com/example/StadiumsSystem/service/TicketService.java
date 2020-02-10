@@ -19,7 +19,7 @@ public class TicketService {
     }
 
     public Ticket findById(Integer id) {
-        return ticketRepository.getOne(id);
+        return ticketRepository.findById(id).orElse(null);
     }
 
     public List<Ticket> findAll() {

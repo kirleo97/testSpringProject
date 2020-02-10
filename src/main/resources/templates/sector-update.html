@@ -5,22 +5,36 @@
     <title>Update Sector</title>
 </head>
 <body>
-<form action="#" th:action="@{/sector-update}" method="post">
-    <label for="id">ID</label>
-    <input readonly type="number" th:field="${sector.id}" id="id" placeholder="ID">
-    <br/>
-    <select th:field="${sector.stadium}">
-        <option th:each="stadium : ${stadiums}" th:value="${stadium.id}" th:text="${stadium.stadiumName}">
-        </option>
-    </select>
-    <br/>
-    <label for="sectorName">Sector's name</label>
-    <input type="text" th:field="${sector.sectorName}" id="sectorName" placeholder="Name of sector">
-    <br/>
-    <label>Sector's number of seats</label>
-    <input type="number" th:field="${sector.numberOfSeats}" placeholder="Write number of seats for Sector">
-    <br/>
-    <input type="submit" value="Update sector">
+<form action="#" th:action="@{/sector-update}" th:object="${sector}" method="post">
+    <table>
+        <tr>
+            <td>ID</td>
+            <td><input readonly type="number" th:field="${sector.id}" id="id" placeholder="ID"></td>
+        </tr>
+        <tr>
+            <td>Select stadium of Sector:</td>
+            <td>
+                <select th:field="${sector.stadium}">
+                    <option th:each="stadium : ${stadiums}" th:value="${stadium.id}" th:text="${stadium.stadiumName}">
+                    </option>
+                </select>
+            </td>
+            <td th:if="${#fields.hasErrors('stadium')}" th:errors="${sector.stadium}" th:style="${'color: red;'}">Sector' stadium Error</td>
+        </tr>
+        <tr>
+            <td>Sector's name:</td>
+            <td> <input type="text" th:field="${sector.sectorName}" placeholder="Write name for Sector"></td>
+            <td th:if="${#fields.hasErrors('sectorName')}" th:errors="${sector.sectorName}" th:style="${'color: red;'}">Sector's name Error</td>
+        </tr>
+        <tr>
+            <td>Sector's number of seats:</td>
+            <td> <input type="number" th:field="${sector.numberOfSeats}" placeholder="Write number of seats for Sector"></td>
+            <td th:if="${#fields.hasErrors('numberOfSeats')}" th:errors="${sector.numberOfSeats}" th:style="${'color: red;'}">Sector's numberOfSeats Error</td>
+        </tr>
+        <tr>
+            <td><button type="submit">Update Sector</button></td>
+        </tr>
+    </table>
 </form>
 <div><a href="/main">Перейти на главную страницу</a></div>
 </body>
