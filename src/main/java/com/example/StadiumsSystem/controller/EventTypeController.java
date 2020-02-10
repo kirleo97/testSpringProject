@@ -26,7 +26,7 @@ public class EventTypeController {
     public String findAll(Model model) {
         List<EventType> eventTypes = eventTypeService.findAll();
         model.addAttribute("eventTypes", eventTypes);
-        return "eventType-list";
+        return "event/eventType-list";
     }
 
     @GetMapping("/eventType-create")
