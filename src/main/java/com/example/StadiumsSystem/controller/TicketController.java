@@ -30,13 +30,13 @@ public class TicketController {
         this.sectorService = sectorService;
     }
 
-    @GetMapping("/list/tickets")
+    @GetMapping("/tickets")
     public String getFormToSelectEventForTickets(Model model) {
         model.addAttribute("events", eventService.findAll());
         return "list/ticket-list";
     }
 
-    @GetMapping("/list/tickets/event/{id}")
+    @GetMapping("/tickets/event/{id}")
     public String getTicketsByEvent(@PathVariable Integer id, Model model) {
         Event event = eventService.findById(id);
         model.addAttribute("event", event);
@@ -74,13 +74,13 @@ public class TicketController {
                 ticketService.saveTicket(ticket);
             }
         }
-        return "redirect:/list/tickets/event/{id}";
+        return "redirect:/tickets/event/{id}";
     }
 
     @GetMapping("/delete/ticket-delete/{eventId}/{ticketId}")
     public String deleteDefinedTicket(@PathVariable Integer eventId, @PathVariable Integer ticketId) {
         ticketService.deleteById(ticketId);
-        return "redirect:/list/tickets/event/{eventId}";
+        return "redirect:/tickets/event/{eventId}";
     }
 
     @GetMapping("/delete/ticket-delete/event/{id}")
@@ -110,7 +110,7 @@ public class TicketController {
                 ticketService.deleteById(ticket.getId());
             }
         }
-        return "redirect:/list/tickets/event/{id}";
+        return "redirect:/tickets/event/{id}";
     }
 
     @GetMapping("/update/ticket-update/event/{eventId}/{ticketId}")
@@ -136,7 +136,7 @@ public class TicketController {
         model.addAttribute("IdOfEvent", eventId);
         model.addAttribute("IdOfTicket", ticketId);
         if (ticketService.findByEventOfTicketAndSectorOfTicketAndSeatNumber(eventService.findById(eventId), sector, numberOfTicketSeat) != null) {
-            return "redirect:/list/tickets/event/{eventId}";
+            return "redirect:/tickets/event/{eventId}";
         }
         cost = ticketService.checkCost(cost);
         numberOfTicketSeat = ticketService.checkSeatNumber(sector, numberOfTicketSeat);
@@ -144,7 +144,7 @@ public class TicketController {
         ticket.setSeatNumber(numberOfTicketSeat);
         ticket.setTicketCost(new BigDecimal(cost));
         ticketService.saveTicket(ticket);
-        return "redirect:/list/tickets/event/{eventId}";
+        return "redirect:/tickets/event/{eventId}";
     }
 
     @PostMapping("buy/ticket-buy/{eventId}/{ticketId}")
@@ -154,6 +154,6 @@ public class TicketController {
         Ticket ticket = ticketService.findById(ticketId);
         ticket.setTicketBought(true);
         ticketService.saveTicket(ticket);
-        return "redirect:/list/tickets/event/{eventId}";
+        return "redirect:/tickets/event/{eventId}";
     }
 }
