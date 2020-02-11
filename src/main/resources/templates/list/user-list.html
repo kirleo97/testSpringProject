@@ -18,7 +18,10 @@
             <tbody>
             <tr th:each="user : ${users}">
                 <td th:text="${user.userName}"></td>
-                <td th:each="role : ${user.roles}" th:text="${role}">
+                <td>
+                    <ul>
+                        <li th:each="role : ${user.roles}" th:text="${role}"></li>
+                    </ul>
                 </td>
                 <td><a th:href="@{/update/user/{id}(id=${user.id})}">Edit</a></td>
             </tr>
