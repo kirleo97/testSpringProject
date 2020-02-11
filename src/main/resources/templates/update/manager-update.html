@@ -2,11 +2,15 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head>
     <meta charset="UTF-8">
-    <title>Create Manager</title>
+    <title>Update Manager</title>
 </head>
 <body>
-<form action="#" th:action="@{/manager-create}" th:object="${manager}" method="post">
+<form action="#" th:action="@{/update/manager-update}" th:object="${manager}" method="post">
     <table>
+        <tr>
+            <td>Manager's ID:</td>
+            <td><input readonly type="number" th:field="*{id}" id="id" placeholder="ID"></td>
+        </tr>
         <tr>
             <td>Manager's name:</td>
             <td> <input type="text" th:field="*{managerName}" id="managerName" placeholder="Write name for Manager" /></td>
@@ -18,7 +22,7 @@
             <td th:if="${#fields.hasErrors('managerTelephoneNumber')}" th:errors="*{managerTelephoneNumber}" th:style="${'color: red;'}">Telephone number Error</td>
         </tr>
         <tr>
-            <td><button type="submit">Create Manager</button></td>
+            <td><button type="submit">Update Manager</button></td>
         </tr>
     </table>
 </form>

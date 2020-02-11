@@ -2,14 +2,17 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head>
     <meta charset="UTF-8">
-    <title>Create Sector</title>
+    <title>Update Sector</title>
 </head>
 <body>
-<h1>Please, create some Sector</h1>
-<form action="#" th:action="@{/sector-create}" th:object="${sector}" method="post">
+<form action="#" th:action="@{/update/sector-update}" th:object="${sector}" method="post">
     <table>
         <tr>
-            <td>Select stadium for sector:</td>
+            <td>ID</td>
+            <td><input readonly type="number" th:field="${sector.id}" id="id" placeholder="ID"></td>
+        </tr>
+        <tr>
+            <td>Select stadium of Sector:</td>
             <td>
                 <select th:field="${sector.stadium}">
                     <option th:each="stadium : ${stadiums}" th:value="${stadium.id}" th:text="${stadium.stadiumName}">
@@ -29,7 +32,7 @@
             <td th:if="${#fields.hasErrors('numberOfSeats')}" th:errors="${sector.numberOfSeats}" th:style="${'color: red;'}">Sector's numberOfSeats Error</td>
         </tr>
         <tr>
-            <td><button type="submit">Create Sector</button></td>
+            <td><button type="submit">Update Sector</button></td>
         </tr>
     </table>
 </form>

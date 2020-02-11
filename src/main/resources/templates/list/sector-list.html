@@ -23,13 +23,13 @@
                 <td th:text="${sector.stadium.stadiumName}"></td>
                 <td th:text="${sector.sectorName}"></td>
                 <td th:text="${sector.numberOfSeats}"></td>
-                <td><a th:href="@{sector-update/{id}(id=${sector.id})}">Edit</a></td>
-                <td><a th:href="@{sector-delete/{id}(id=${sector.id})}">Delete</a></td>
+                <td><a th:href="@{/update/sector-update/{id}(id=${sector.id})}">Edit</a></td>
+                <td><a th:href="@{/delete/sector-delete/{id}(id=${sector.id})}">Delete</a></td>
             </tr>
             </tbody>
         </table>
     </div>
-    <p><a href="/sector-create">Create sector</a></p>
+    <p><a href="/create/sector-create">Create sector</a></p>
 </div>
 <div><a href="/main">Перейти на главную страницу</a></div>
 </body>

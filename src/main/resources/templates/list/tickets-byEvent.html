@@ -25,10 +25,10 @@
                 <td th:text="${ticket.seatNumber}"></td>
                 <td th:text="${ticket.ticketCost}"></td>
                 <td th:text="${ticket.ticketBought}"></td>
-                <td><a th:href="@{/ticket-update/event/{eventId}/{ticketId} (eventId=${IdOfEvent}, ticketId=${ticket.id})}">Edit</a></td>
-                <td><a th:href="@{/ticket-delete/{eventId}/{ticketId} (eventId=${IdOfEvent}, ticketId=${ticket.id}) }">Delete</a></td>
+                <td><a th:href="@{/update/ticket-update/event/{eventId}/{ticketId} (eventId=${IdOfEvent}, ticketId=${ticket.id})}">Edit</a></td>
+                <td><a th:href="@{/delete/ticket-delete/{eventId}/{ticketId} (eventId=${IdOfEvent}, ticketId=${ticket.id}) }">Delete</a></td>
                 <td th:if="${ticket.ticketBought} == false">
-                    <form action="#" th:action="@{/ticket-buy/{eventId}/{ticketId} (eventId=${IdOfEvent}, ticketId=${ticket.id})}" method="post">
+                    <form action="#" th:action="@{/buy/ticket-buy/{eventId}/{ticketId} (eventId=${IdOfEvent}, ticketId=${ticket.id})}" method="post">
                         <input type="submit" value="Buy ticket">
                     </form>
                 </td>
@@ -36,8 +36,8 @@
             </tbody>
         </table>
     </div>
-    <p><a th:href="@{/ticket-create/event/{id}(id=${IdOfEvent})}">Create tickets</a></p>
-    <p><a th:href="@{/ticket-delete/event/{id} (id=${IdOfEvent})}">Delete tickets</a></p>
+    <p><a th:href="@{/create/ticket-create/event/{id}(id=${IdOfEvent})}">Create tickets</a></p>
+    <p><a th:href="@{/create/ticket-delete/event/{id} (id=${IdOfEvent})}">Delete tickets</a></p>
 </div>
 <div><a href="/main">Перейти на главную страницу</a></div>
 </body>

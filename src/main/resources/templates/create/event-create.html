@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>Please, create some Event</h1>
-<form action="#" th:action="@{/event-create}" th:object="${event}" method="post">
+<form action="#" th:action="@{/create/event-create}" th:object="${event}" method="post">
     <table>
         <tr>
             <td>
@@ -62,28 +62,6 @@
         </tr>
     </table>
 </form>
-<!--<form action="#" th:action="@{/event-create}" method="post">
-    <select th:field="${event.eventType}">
-        <option th:each="eventType : ${eventTypes}" th:value="${eventType.id}" th:text="${eventType.eventTypeName}">
-        </option>
-    </select>
-    <label>Event's name</label>
-    <input type="text" th:field="${event.eventName}" placeholder="Write name for Event">
-    <label>Event's date</label>
-    <input type="datetime-local" name="date" placeholder="Write date for Event">
-    <select th:field="${event.stadiumOfEvent}">
-        <option th:each="stadium : ${}" th:value="${stadium.id}" th:text="${stadium.stadiumName}">
-        </option>
-    </select>
-    <label>Event's period of prepare</label>
-    <input type="date" name="startOfPreparation" placeholder="Write period of prepare for Event">
-    <input type="date" name="endOfDismantle" placeholder="Write period of prepare for Event">
-    <select th:field="${event.eventManager}">
-        <option th:each="manager : ${managers}" th:value="${manager.id}" th:text="${manager.managerName}">
-        </option>
-    </select>
-    <input type="submit" value="Create event">
-</form>-->
 <div><a href="/main">Перейти на главную страницу</a></div>
 </body>
 </html>

@@ -25,13 +25,13 @@
                         <li th:each="typeOfEvent : ${stadium.eventTypes}" th:text="${typeOfEvent.eventTypeName}">Name of event type</li>
                     </ul>
                 </td>
-                <td><a th:href="@{stadium-update/{id}(id=${stadium.id})}">Edit</a></td>
-                <td><a th:href="@{stadium-delete/{id}(id=${stadium.id})}">Delete</a></td>
+                <td><a th:href="@{/update/stadium-update/{id}(id=${stadium.id})}">Edit</a></td>
+                <td><a th:href="@{/delete/stadium-delete/{id}(id=${stadium.id})}">Delete</a></td>
             </tr>
             </tbody>
         </table>
     </div>
-    <p><a href="/stadium-create">Create stadium</a></p>
+    <p><a href="/create/stadium-create">Create stadium</a></p>
 </div>
 <div><a href="/main">Перейти на главную страницу</a></div>
 </body>

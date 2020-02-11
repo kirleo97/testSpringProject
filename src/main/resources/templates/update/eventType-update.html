@@ -5,7 +5,7 @@
     <title>Update EventType</title>
 </head>
 <body>
-<form action="#" th:action="@{/eventType-update}" th:object="${eventType}" method="post">
+<form action="#" th:action="@{/update/eventType-update}" th:object="${eventType}" method="post">
     <table>
         <tr>
             <td>ID:</td>
@@ -20,13 +20,6 @@
             <td><button type="submit">Update EvenType</button></td>
         </tr>
     </table>
-    <!--<label for="id">ID</label>
-    <input readonly type="number" th:field="*{id}" id="id" placeholder="ID">
-    <br/>
-    <label for="eventTypeName">Name of EventType</label>
-    <input type="text" th:field="*{eventTypeName}" id="eventTypeName" placeholder="Name of EventType">
-    <br/>
-    <input type="submit" value="Update EventType">-->
 </form>
 <div><a href="/main">Перейти на главную страницу</a></div>
 </body>

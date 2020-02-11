@@ -31,13 +31,13 @@
                 <td th:text="${#temporals.format(event.startOfPreparationOfStadium, 'dd.MM.yyyy')}"></td>
                 <td th:text="${#temporals.format(event.endOfDismantleOfStadium, 'dd.MM.yyyy')}"></td>
                 <td th:text="${event.eventManager.managerName}"></td>
-                <td><a th:href="@{event-update/{id}(id=${event.id})}">Edit</a></td>
-                <td><a th:href="@{event-delete/{id}(id=${event.id})}">Delete</a></td>
+                <td><a th:href="@{/update/event-update/{id}(id=${event.id})}">Edit</a></td>
+                <td><a th:href="@{/delete/event-delete/{id}(id=${event.id})}">Delete</a></td>
             </tr>
             </tbody>
         </table>
     </div>
-    <p><a href="/event-create">Create event</a></p>
+    <p><a href="/create/event-create">Create event</a></p>
 </div>
 <div><a href="/main">Перейти на главную страницу</a></div>
 </body>

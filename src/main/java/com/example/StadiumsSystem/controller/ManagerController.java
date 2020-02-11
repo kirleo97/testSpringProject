@@ -23,47 +23,47 @@ public class ManagerController {
         this.managerService = managerService;
     }
 
-    @GetMapping("/managers")
+    @GetMapping("/list/managers")
     public String findAll(Model model) {
         List<Manager> managers = managerService.findAll();
         model.addAttribute("managers", managers);
-        return "manager-list";
+        return "list/manager-list";
     }
 
-    @GetMapping("/manager-create")
+    @GetMapping("/create/manager-create")
     public String createManagerForm(Model model) {
         model.addAttribute("manager", new Manager());
-        return "manager-create";
+        return "create/manager-create";
     }
 
-    @PostMapping("/manager-create")
+    @PostMapping("/create/manager-create")
     public String createManager(@Valid Manager manager, BindingResult bindingResult) {
         if (!managerService.isValidationForManagerSuccessful(manager, bindingResult)) {
-            return "manager-create";
+            return "create/manager-create";
         }
         managerService.saveManager(manager);
-        return "redirect:/managers";
+        return "redirect:/list/managers";
     }
 
-    @GetMapping("/manager-delete/{id}")
+    @GetMapping("/delete/manager-delete/{id}")
     public String deleteManager(@PathVariable("id") Integer id) {
         managerService.deleteById(id);
-        return "redirect:/managers";
+        return "redirect:/list/managers";
     }
 
-    @GetMapping("/manager-update/{id}")
+    @GetMapping("/update/manager-update/{id}")
     public String updateEventTypeForm(@PathVariable("id") Integer id, Model model) {
         Manager manager = managerService.findById(id);
         model.addAttribute("manager", manager);
-        return "manager-update";
+        return "update/manager-update";
     }
 
-    @PostMapping("/manager-update")
+    @PostMapping("/update/manager-update")
     public String updateEventType(@Valid Manager manager, BindingResult bindingResult) {
         if (!managerService.isValidationForManagerSuccessful(manager, bindingResult)) {
-            return "manager-update";
+            return "update/manager-update";
         }
         managerService.saveManager(manager);
-        return "redirect:/managers";
+        return "redirect:/list/managers";
     }
 }

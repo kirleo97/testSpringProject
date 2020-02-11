@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Ticketj</title>
+</head>
+<body>
+<div>Hello, user</div>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
+</form>
+<div><a href="/list/eventTypes">Перейти к списку видов мероприятий</a></div>
+<div><a href="/list/managers">Перейти к списку организаторов</a></div>
+<div><a href="/list/stadiums">Перейти к списку стадионов</a></div>
+<div><a href="/list/events">Перейти к списку мероприятий</a></div>
+<div><a href="/list/sectors">Перейти к списку секторов</a></div>
+<div><a href="/list/tickets">Перейти к списку билетов</a></div>
+</body>
+</html>

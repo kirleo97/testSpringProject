@@ -19,13 +19,13 @@
             <tr th:each="eventType : ${eventTypes}">
                 <td th:text="${eventType.id}"></td>
                 <td th:text="${eventType.eventTypeName}"></td>
-                <td><a th:href="@{eventType-update/{id}(id=${eventType.id})}">Edit</a></td>
-                <td><a th:href="@{eventType-delete/{id}(id=${eventType.id})}">Delete</a></td>
+                <td><a th:href="@{/update/eventType-update/{id}(id=${eventType.id})}">Edit</a></td>
+                <td><a th:href="@{/delete/eventType-delete/{id}(id=${eventType.id})}">Delete</a></td>
             </tr>
             </tbody>
         </table>
     </div>
-    <p><a href="/eventType-create">Create eventType</a></p>
+    <p><a href="/create/eventType-create">Create eventType</a></p>
 </div>
 <div><a href="/main">Перейти на главную страницу</a></div>
 </body>

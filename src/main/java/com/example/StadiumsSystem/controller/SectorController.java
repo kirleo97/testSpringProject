@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 public class SectorController {
@@ -24,59 +23,59 @@ public class SectorController {
         this.stadiumService = stadiumService;
     }
 
-    @GetMapping("/sectors")
+    @GetMapping("/list/sectors")
     public String findAll(Model model) {
         model.addAttribute("sectors", sectorService.findAll());
-        return "sector-list";
+        return "list/sector-list";
     }
 
-    @GetMapping("/sector-create")
+    @GetMapping("/create/sector-create")
     public String createSectorForm(Model model) {
         model.addAttribute("sector", new Sector());
         model.addAttribute("stadiums", stadiumService.findAll());
-        return "sector-create";
+        return "create/sector-create";
     }
 
-    @PostMapping("/sector-create")
+    @PostMapping("/create/sector-create")
     public String createSector(@Valid Sector sector, BindingResult bindingResult, Model model) {
         model.addAttribute("stadiums", stadiumService.findAll());
         model.addAttribute("sector", sector);
         if (bindingResult.hasErrors()) {
-            return "sector-create";
+            return "create/sector-create";
         }
         sectorService.checkValidationForSector(sector, bindingResult);
         if (bindingResult.hasErrors()) {
-            return "sector-create";
+            return "create/sector-create";
         }
         sectorService.saveSector(sector);
-        return "redirect:/sectors";
+        return "redirect:/list/sectors";
     }
 
-    @GetMapping("/sector-delete/{id}")
+    @GetMapping("/delete/sector-delete/{id}")
     public String deleteSector(@PathVariable("id") Integer id) {
         sectorService.deleteById(id);
-        return "redirect:/sectors";
+        return "redirect:/list/sectors";
     }
 
-    @GetMapping("/sector-update/{id}")
+    @GetMapping("/update/sector-update/{id}")
     public String updateSectorForm(@PathVariable("id") Integer id, Model model) {
         model.addAttribute("sector", sectorService.findById(id));
         model.addAttribute("stadiums", stadiumService.findAll());
-        return "sector-update";
+        return "update/sector-update";
     }
 
-    @PostMapping("/sector-update")
+    @PostMapping("/update/sector-update")
     public String updateSector(@Valid Sector sector, BindingResult bindingResult, Model model) {
         model.addAttribute("sector", sector);
         model.addAttribute("stadiums", stadiumService.findAll());
         if (bindingResult.hasErrors()) {
-            return "sector-update";
+            return "update/sector-update";
         }
         sectorService.checkValidationForSector(sector, bindingResult);
         if (bindingResult.hasErrors()) {
-            return "sector-update";
+            return "update/sector-update";
         }
         sectorService.saveSector(sector);
-        return "redirect:/sectors";
+        return "redirect:/list/sectors";
     }
 }

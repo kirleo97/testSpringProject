@@ -22,13 +22,13 @@
                 <td th:text="${manager.id}"></td>
                 <td th:text="${manager.managerName}"></td>
                 <td th:text="${manager.managerTelephoneNumber}"></td>
-                <td><a th:href="@{manager-update/{id}(id=${manager.id})}">Edit</a></td>
-                <td><a th:href="@{manager-delete/{id}(id=${manager.id})}">Delete</a></td>
+                <td><a th:href="@{/update/manager-update/{id}(id=${manager.id})}">Edit</a></td>
+                <td><a th:href="@{/delete/manager-delete/{id}(id=${manager.id})}">Delete</a></td>
             </tr>
             </tbody>
         </table>
     </div>
-    <p><a href="/manager-create">Create manager</a></p>
+    <p><a href="/create/manager-create">Create manager</a></p>
 </div>
 <div><a href="/main">Перейти на главную страницу</a></div>
 </body>

@@ -5,7 +5,7 @@
     <title>Create EventType</title>
 </head>
 <body>
-<form action="#" th:action="@{/eventType-create}" th:object="${eventType}" method="post">
+<form action="#" th:action="@{/create/eventType-create}" th:object="${eventType}" method="post">
     <table>
         <tr>
             <td>EventType name:</td>
@@ -16,10 +16,6 @@
             <td><button type="submit">Create EvenType</button></td>
         </tr>
     </table>
-
-    <!--<label for="eventTypeName">EventType name</label>
-    <input type="text" th:field="*{eventTypeName}" id="eventTypeName" placeholder="Write name for EventType">
-    <input type="submit" value="Create EventType">-->
 </form>
 <div><a href="/main">Перейти на главную страницу</a></div>
 </body>

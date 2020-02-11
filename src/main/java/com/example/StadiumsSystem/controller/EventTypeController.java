@@ -22,47 +22,47 @@ public class EventTypeController {
         this.eventTypeService = eventTypeService;
     }
 
-    @GetMapping("/eventTypes")
+    @GetMapping("/list/eventTypes")
     public String findAll(Model model) {
         List<EventType> eventTypes = eventTypeService.findAll();
         model.addAttribute("eventTypes", eventTypes);
-        return "event/eventType-list";
+        return "list/eventType-list";
     }
 
-    @GetMapping("/eventType-create")
+    @GetMapping("/create/eventType-create")
     public String createEventTypeForm(Model model) {
         model.addAttribute("eventType", new EventType());
-        return "eventType-create";
+        return "create/eventType-create";
     }
 
-    @PostMapping("/eventType-create")
+    @PostMapping("/create/eventType-create")
     public String createEventType(@Valid EventType eventType, BindingResult bindingResult) {
         if (!eventTypeService.isValidationForEventTypeSuccessful(eventType, bindingResult)) {
-            return "eventType-create";
+            return "create/eventType-create";
         }
         eventTypeService.saveEventType(eventType);
-        return "redirect:/eventTypes";
+        return "redirect:/list/eventTypes";
     }
 
-    @GetMapping("/eventType-delete/{id}")
+    @GetMapping("/delete/eventType-delete/{id}")
     public String deleteEventType(@PathVariable("id") Integer id) {
         eventTypeService.deleteById(id);
-        return "redirect:/eventTypes";
+        return "redirect:/list/eventTypes";
     }
 
-    @GetMapping("/eventType-update/{id}")
+    @GetMapping("/update/eventType-update/{id}")
     public String updateEventTypeForm(@PathVariable("id") Integer id, Model model) {
         EventType eventType = eventTypeService.findById(id);
         model.addAttribute("eventType", eventType);
-        return "eventType-update";
+        return "update/eventType-update";
     }
 
-    @PostMapping("/eventType-update")
+    @PostMapping("/update/eventType-update")
     public String updateEventType(@Valid EventType eventType, BindingResult bindingResult) {
         if (!eventTypeService.isValidationForEventTypeSuccessful(eventType, bindingResult)) {
-            return "eventType-update";
+            return "update/eventType-update";
         }
         eventTypeService.saveEventType(eventType);
-        return "redirect:/eventTypes";
+        return "redirect:/list/eventTypes";
     }
 }

@@ -31,72 +31,72 @@ public class EventController {
         this.managerService = managerService;
     }
 
-    @GetMapping("/events")
+    @GetMapping("/list/events")
     public String findAll(Model model) {
         model.addAttribute("events", eventService.findAll());
-        return "event-list";
+        return "list/event-list";
     }
 
-    @GetMapping("/event-create")
+    @GetMapping("/create/event-create")
     public String createEventForm(Model model) {
         model.addAttribute("event", new Event());
         model.addAttribute("eventTypes", eventTypeService.findAll());
         model.addAttribute("stadiums", stadiumService.findAll());
         model.addAttribute("managers", managerService.findAll());
-        return "event-create";
+        return "create/event-create";
     }
 
-    @PostMapping("/event-create")
+    @PostMapping("/create/event-create")
     public String createEvent(@Valid Event event, BindingResult bindingResult, Model model) {
         model.addAttribute("eventTypes", eventTypeService.findAll());
         model.addAttribute("stadiums", stadiumService.findAll());
         model.addAttribute("managers", managerService.findAll());
         model.addAttribute("event", event);
         if (bindingResult.hasErrors()) {
-            return "event-create";
+            return "create/event-create";
         }
         eventService.checkValidationFormForEvent(event, bindingResult);
         if (!event.getStadiumOfEvent().getEventTypes().contains(event.getEventType())) {
             bindingResult.addError(new FieldError("event", "stadiumOfEvent", "У выбранного стадиона нет такого вида мероприятия. Возможные стадионы для данного вида мероприятия: " + stadiumService.findAllStadiumsByEventType(event.getEventType())));
         }
         if (bindingResult.hasErrors()) {
-            return "event-create";
+            return "create/event-create";
         }
         eventService.saveEvent(event);
-        return "redirect:/events";
+        return "redirect:/list/events";
     }
 
-    @GetMapping("/event-delete/{id}")
+    @GetMapping("/delete/event-delete/{id}")
     public String deleteEvent(@PathVariable("id") Integer id) {
         eventService.deleteById(id);
-        return "redirect:/events";
+        return "redirect:/list/events";
     }
 
-    @GetMapping("/event-update/{id}")
+    @GetMapping("/update/event-update/{id}")
     public String updateEventForm(@PathVariable("id") Integer id, Model model) {
         model.addAttribute("event", eventService.findById(id));
         model.addAttribute("typesOfEvent", eventTypeService.findAll());
         model.addAttribute("stadiums", stadiumService.findAll());
         model.addAttribute("managers", managerService.findAll());
-        return "event-update";
+        return "update/event-update";
     }
 
-    @PostMapping("/event-update")
+    @PostMapping("/update/event-update")
     public String updateEvent(@Valid Event event, BindingResult bindingResult, Model model) {
         model.addAttribute("typesOfEvent", eventTypeService.findAll());
         model.addAttribute("stadiums", stadiumService.findAll());
         model.addAttribute("managers", managerService.findAll());
         if (bindingResult.hasErrors()) {
-            return "event-update";
+            return "update/event-update";
         }
         if (!event.getStadiumOfEvent().getEventTypes().contains(event.getEventType())) {
             bindingResult.addError(new FieldError("event", "stadiumOfEvent", "У выбранного стадиона нет такого вида мероприятия. Возможные стадионы для данного вида мероприятия: " + stadiumService.findAllStadiumsByEventType(event.getEventType())));
         }
         eventService.checkValidationFormForEvent(event, bindingResult);
         if (bindingResult.hasErrors()) {
-            return "event-update";
+            return "update/event-update";
         }
         eventService.saveEvent(event);
-        return "redirect:/events";
+        return "redirect:/list/events";
     }
 }
