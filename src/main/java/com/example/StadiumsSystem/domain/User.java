@@ -1,10 +1,12 @@
 package com.example.StadiumsSystem.domain;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -20,7 +22,18 @@ public class User implements UserDetails {
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
-    private Set<Role> roles;
+    @Autowired
+    private Set<Role> roles = new HashSet<>();
+
+    public User() {
+    }
+
+    @Autowired
+    public User(String userName, String password, boolean isActive) {
+        this.userName = userName;
+        this.password = password;
+        this.isActive = isActive;
+    }
 
     public Integer getId() {
         return id;
