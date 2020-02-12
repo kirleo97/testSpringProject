@@ -31,7 +31,7 @@ public class Event {
 
     @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-    @Future(message = "Мероприятие не может быть проведено ранее текущей даты. Пожалуйста, введите другие данные.")
+    @Future(message = "The event cannot be held earlier than the current date. Please enter other information.")
     @Column(name = "EVENT_DATE", nullable = false)
     private LocalDateTime dateOfEvent;
 
@@ -42,13 +42,13 @@ public class Event {
 
     @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Future(message = "Подготовка к мероприятию не может начаться ранее текущей даты. Пожалуйста, введите другие данные.")
+    @Future(message = "Preparation for the event cannot begin earlier than the current date. Please enter other information.")
     @Column(name = "event_startOfPreparationOfStadium", nullable = false)
     private LocalDate startOfPreparationOfStadium;
 
     @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Future(message = "Демонтаж арены не может быть завершен ранее текущей даты. Пожалуйста, введите другие данные.")
+    @Future(message = "The dismantling of the arena could not be completed earlier than the current date. Please enter other information.")
     @Column(name = "event_endOfDismantleOfStadium", nullable = false)
     private LocalDate endOfDismantleOfStadium;
 

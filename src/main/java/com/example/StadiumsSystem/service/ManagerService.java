@@ -39,7 +39,7 @@ public class ManagerService {
         Manager checkManager = managerRepository.findByManagerTelephoneNumber(manager.getManagerTelephoneNumber());
         if (checkManager != null) {
             if(!checkManager.getId().equals(manager.getId())) {
-                bindingResult.addError(new FieldError("manager", "managerTelephoneNumber", "Организатор с телефоном '" + manager.getManagerTelephoneNumber() + "' уже существует. Пожалуйста, введите другое номер."));
+                bindingResult.addError(new FieldError("manager", "managerTelephoneNumber", "Manager with telephone number '" + manager.getManagerTelephoneNumber() + "' already exist. Please enter a different number."));
             }
         }
         return !bindingResult.hasErrors();

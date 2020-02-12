@@ -16,15 +16,15 @@ public class Manager {
     @Column(name = "MANAGER_ID")
     private Integer id;
 
-    @Pattern(message = "\"Значение должно начинаться с заглавной буквы, после которой должны следовать только строчные. Неправильная форма: ${validatedValue}",
+    @Pattern(message = "The value must start with a capital letter, followed by only lowercase letters. Irregular shape: ${validatedValue}",
             regexp = "^[A-Z][a-z]*(\\s(([a-z]{1,3})|(([a-z]+\\')?[A-Z][a-z]*)))*$")
     @Length(min = 2, max = 100)
     @NotBlank
     @Column(name = "MANAGER_NAME", nullable = false)
     private String managerName;
 
-    @NotBlank(message = "Поле телефонного номера не может быть пустым!")
-    @Digits(integer = 11, fraction = 0, message = "Введенный номер не соответствует установленной форме")
+    @NotBlank(message = "The phone number field cannot be empty!")
+    @Digits(integer = 11, fraction = 0, message = "The entered number does not match the specified form!")
     @Column(name = "MANAGER_TELEPHONE_NUMBER", unique = true, nullable = false)
     private String managerTelephoneNumber;
 

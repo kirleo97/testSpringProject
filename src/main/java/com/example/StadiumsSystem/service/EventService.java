@@ -39,13 +39,13 @@ public class EventService {
     public void checkIfDateOfEventIsInPeriodOfPreparationAndDismantle(Event event, BindingResult bindingResult) {
         LocalDate dateOfEvent = LocalDate.from(event.getDateOfEvent());
         if (dateOfEvent.isBefore(event.getStartOfPreparationOfStadium()) || dateOfEvent.isAfter(event.getEndOfDismantleOfStadium())) {
-            bindingResult.addError(new FieldError("event", "dateOfEvent", "Дата мероприятия должна входить в период подготовки и окончания мероприятия ( " + dateOfEvent));
+            bindingResult.addError(new FieldError("event", "dateOfEvent", "The date of the event must be included in the period of preparation and completion of the event ( " + dateOfEvent));
         }
     }
 
     public void checkIfStartOfPreparationIsBeforeEndOfDismantleOrEquals(Event event, BindingResult bindingResult) {
         if (Period.between(event.getStartOfPreparationOfStadium(), event.getEndOfDismantleOfStadium()).isNegative()) {
-            bindingResult.addError(new FieldError("event", "endOfDismantleOfStadium", "Выбранный период невозможен, так как начало периода не должно быть после его окончания ( " + event.getStartOfPreparationOfStadium() + " - " + event.getEndOfDismantleOfStadium()));
+            bindingResult.addError(new FieldError("event", "endOfDismantleOfStadium", "The selected period is not possible, since the beginning of the period should not be after its end ( " + event.getStartOfPreparationOfStadium() + " - " + event.getEndOfDismantleOfStadium()));
         }
     }
 
@@ -64,16 +64,16 @@ public class EventService {
             endOfOtherEvent = event.getEndOfDismantleOfStadium();
             if (startOfCheckEvent.isBefore(startOfOtherEvent)) {
                 if (!endOfCheckEvent.isBefore(startOfOtherEvent)) {
-                    bindingResult.addError(new FieldError("checkEvent", "endOfDismantleOfStadium", "Выбранный период мероприятия пересекается с проведением другого мероприятия: " + startOfOtherEvent + " - " + endOfOtherEvent));
+                    bindingResult.addError(new FieldError("checkEvent", "endOfDismantleOfStadium", "The selected period of the event overlaps with the holding of other events: " + startOfOtherEvent + " - " + endOfOtherEvent));
                 }
             }
             if (startOfCheckEvent.isAfter(startOfOtherEvent)) {
                 if (!startOfCheckEvent.isAfter(endOfOtherEvent)) {
-                    bindingResult.addError(new FieldError("checkEvent", "endOfDismantleOfStadium", "Выбранный период мероприятия пересекается с проведением другого мероприятия: " + startOfOtherEvent + " - " + endOfOtherEvent));
+                    bindingResult.addError(new FieldError("checkEvent", "endOfDismantleOfStadium", "The selected period of the event overlaps with the holding of other events: " + startOfOtherEvent + " - " + endOfOtherEvent));
                 }
             }
             if (startOfCheckEvent.isEqual(startOfOtherEvent)) {
-                bindingResult.addError(new FieldError("checkEvent", "startOfPreparationOfStadium", "Выбранный период мероприятия пересекается с проведением другого мероприятия: " + startOfOtherEvent + " - " + endOfOtherEvent));
+                bindingResult.addError(new FieldError("checkEvent", "startOfPreparationOfStadium", "The selected period of the event overlaps with the holding of other events: " + startOfOtherEvent + " - " + endOfOtherEvent));
             }
         }
     }

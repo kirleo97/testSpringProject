@@ -13,19 +13,19 @@
             <td><input readonly type="number" th:field="${ticket.id}" id="id" placeholder="ID"></td>
         </tr>
         <tr>
-            <td>Название мероприятия:</td>
+            <td>Event's name:</td>
             <td th:text="${event.eventName}"></td>
         </tr>
         <tr>
-            <td>Тип мероприятия:</td>
-            <td th:text="${event.eventType}"></td>
+            <td>EventType:</td>
+            <td th:text="${event.eventType.eventTypeName}"></td>
         </tr>
         <tr>
-            <td>Дата мероприятия:</td>
+            <td>Date of Event:</td>
             <td th:text="${#temporals.format(event.dateOfEvent, 'dd.MM.yyyy HH:mm')}"></td>
         </tr>
         <tr>
-            <td>Выберете сектор билета:</td>
+            <td>Choose sector of the ticket:</td>
             <td>
                 <select name="sectorId">
                     <option th:each="sector : ${sectors}" th:value="${sector.id}" th:text="${sector.sectorName}">
@@ -34,11 +34,11 @@
             </td>
         </tr>
         <tr>
-            <td>Введите номер места</td>
+            <td>Enter the seat number</td>
             <td><input type="number" name="numberOfTicketSeat" placeholder="Write seat number"></td>
         </tr>
         <tr>
-            <td>Введите цену билета</td>
+            <td>Enter the cost of the ticket</td>
             <td><input type="number" name="cost" placeholder="Write cost"></td>
         </tr>
         <tr>
@@ -46,6 +46,6 @@
         </tr>
     </table>
 </form>
-<div><a href="/main">Перейти на главную страницу</a></div>
+<div><a href="/main">Go to main page</a></div>
 </body>
 </html>

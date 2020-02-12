@@ -47,7 +47,7 @@ public class SectorService {
         }
         for (Sector sector : sectorsToCheck) {
             if (sector.getSectorName().equals(checkSectorName)) {
-                bindingResult.addError(new FieldError("checkSector", "sectorName", "Сектор с таким именем уже существует на выбранном стадионе. Пожалуйста, введите другое имя"));
+                bindingResult.addError(new FieldError("checkSector", "sectorName", "A sector with this name already exists in the selected stadium. Please enter a different name. [" + sector.getSectorName() + "]"));
             }
         }
     }

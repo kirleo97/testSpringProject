@@ -9,19 +9,19 @@
 <form action="#" th:action="@{/delete/ticket-delete/event/{id} (id=${IdOfEvent})}" method="post">
     <table>
         <tr>
-            <td>Название мероприятия:</td>
+            <td>Name of event:</td>
             <td th:text="${event.eventName}"></td>
         </tr>
         <tr>
-            <td>Тип мероприятия:</td>
+            <td>EventType:</td>
             <td th:text="${event.eventType}"></td>
         </tr>
         <tr>
-            <td>Дата мероприятия:</td>
+            <td>Date of Event:</td>
             <td th:text="${#temporals.format(event.dateOfEvent, 'dd.MM.yyyy HH:mm')}"></td>
         </tr>
         <tr>
-            <td>Выберете сектор удаляемых билетов:</td>
+            <td>Select the sector of deleted tickets:</td>
             <td>
                 <select name="sectorId">
                     <option th:each="sector : ${sectors}" th:value="${sector.id}" th:text="${sector.sectorName}">
@@ -30,11 +30,11 @@
             </td>
         </tr>
         <tr>
-            <td>Введите номер места, с которого вы хотите удалить билеты</td>
+            <td>Enter the number of the seat from which you want to delete tickets</td>
             <td><input type="number" name="fromSeatNumber" placeholder="Write number FROM"></td>
         </tr>
         <tr>
-            <td>Введите номер места, до которого вы хотите удалить билеты</td>
+            <td>Enter the number of the place to which you want to create tickets</td>
             <td><input type="number" name="toSeatNumber" placeholder="Write number TO"></td>
         </tr>
         <tr>
@@ -42,6 +42,6 @@
         </tr>
     </table>
 </form>
-<div><a href="/main">Перейти на главную страницу</a></div>
+<div><a href="/main">Go to main page</a></div>
 </body>
 </html>

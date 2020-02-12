@@ -39,7 +39,7 @@ public class EventTypeService {
         EventType checkEventType = eventTypeRepository.findByEventTypeName(eventType.getEventTypeName());
         if (checkEventType != null) {
             if (!checkEventType.getId().equals(eventType.getId())) {
-                bindingResult.addError(new FieldError("eventType", "eventTypeName", "Тип мероприятия с именем '" + eventType.getEventTypeName() + "' уже существует. Пожалуйста, введите другое имя."));
+                bindingResult.addError(new FieldError("eventType", "eventTypeName", "EventType with name '" + eventType.getEventTypeName() + "' already exists. Please enter a different name."));
             }
         }
         return !bindingResult.hasErrors();

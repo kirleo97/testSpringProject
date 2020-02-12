@@ -38,7 +38,7 @@ public class StadiumService {
     public boolean isValidationForCreateStadiumSuccessful(Stadium stadium, BindingResult bindingResult) {
         String stadiumName = stadium.getStadiumName();
         if(isStadiumWithDefinedNameExist(stadiumName)) {
-            bindingResult.addError(new FieldError("stadium", "stadiumName", "Стадион с именем '" + stadiumName + "' уже существует. Пожалуйста, введите другое имя."));
+            bindingResult.addError(new FieldError("stadium", "stadiumName", "Stadium with name '" + stadiumName + "' already exists. Please enter a different name"));
         }
         return !bindingResult.hasErrors();
     }
@@ -48,7 +48,7 @@ public class StadiumService {
         if(isStadiumWithDefinedNameExist(stadiumName)) {
             Stadium checkStadium = stadiumRepository.findByStadiumName(stadiumName);
             if (!stadium.getId().equals(checkStadium.getId())) {
-                bindingResult.addError(new FieldError("stadium", "stadiumName", "Стадион с именем '" + stadiumName + "' уже существует. Пожалуйста, введите другое имя."));
+                bindingResult.addError(new FieldError("stadium", "stadiumName", "Stadium with name '" + stadiumName + "' already exists. Please enter a different name"));
                 return false;
             }
         }
