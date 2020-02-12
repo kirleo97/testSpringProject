@@ -1,6 +1,5 @@
 package com.example.StadiumsSystem.service;
 
-import com.example.StadiumsSystem.domain.Event;
 import com.example.StadiumsSystem.domain.Sector;
 import com.example.StadiumsSystem.domain.Stadium;
 import com.example.StadiumsSystem.repository.SectorRepository;
