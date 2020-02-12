@@ -6,10 +6,23 @@
 </head>
 <body>
 Add new User
-<form action="#" th:action="@{/registration}" method="post">
-    <div><label> User Name : <input type="text" name="userName"/> </label></div>
-    <div><label> Password: <input type="password" name="password"/> </label></div>
-    <div><input type="submit" value="Add this user"/></div>
+<form action="#" th:action="@{/registration}" th:object="${user}" method="post">
+    <table>
+        <tr>
+            <td>User's name:</td>
+            <td> <input type="text" th:field="*{userName}" id="userName" placeholder="Write name" /></td>
+            <td th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}" th:style="${'color: red;'}">Name Error</td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td> <input type="password" th:field="*{password}" id="password" placeholder="Write password" /></td>
+            <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}" th:style="${'color: red;'}">Password Error</td>
+        </tr>
+        <tr>
+            <td><button type="submit">To register</button></td>
+        </tr>
+    </table>
 </form>
+<div><a href="/main">Перейти на главную страницу</a></div>
 </body>
 </html>

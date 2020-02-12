@@ -15,8 +15,8 @@ public class EventType {
     @Column(name = "EVENTTYPE_ID")
     private Integer id;
 
-    @Pattern(message = "Значение должно начинаться с заглавной буквы, после которой должны следовать только строчные. Неправильная форма: ${validatedValue}",
-            regexp = "^[A-Z]{1}[a-z]+$")
+    @Pattern(message = "The value must start with a capital letter. Irregular shape: ${validatedValue}",
+            regexp = "^[A-Z]{1}.{1,99}")
     @Length(min = 2, max = 100)
     @NotBlank
     @Column(name = "EVENTTYPE_NAME", nullable = false, unique = true)

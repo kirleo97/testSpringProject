@@ -36,13 +36,12 @@ public class ManagerService {
     }
 
     public boolean isValidationForManagerSuccessful(Manager manager, BindingResult bindingResult) {
-        if(isManagerWithDefinedTelephoneNumberExist(manager.getManagerTelephoneNumber())) {
-            bindingResult.addError(new FieldError("manager", "managerTelephoneNumber", "Организатор с телефоном '" + manager.getManagerTelephoneNumber() + "' уже существует. Пожалуйста, введите другое номер."));
+        Manager checkManager = managerRepository.findByManagerTelephoneNumber(manager.getManagerTelephoneNumber());
+        if (checkManager != null) {
+            if(!checkManager.getId().equals(manager.getId())) {
+                bindingResult.addError(new FieldError("manager", "managerTelephoneNumber", "Организатор с телефоном '" + manager.getManagerTelephoneNumber() + "' уже существует. Пожалуйста, введите другое номер."));
+            }
         }
         return !bindingResult.hasErrors();
-    }
-
-    public boolean isManagerWithDefinedTelephoneNumberExist(String managerTelephoneNumber) {
-        return managerRepository.findByManagerTelephoneNumber(managerTelephoneNumber) != null;
     }
 }

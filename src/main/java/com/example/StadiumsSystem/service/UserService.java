@@ -7,6 +7,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 
 import java.util.List;
 
@@ -23,12 +25,12 @@ public class UserService implements UserDetailsService {
         return userRepository.findById(id).orElse(null);
     }
 
-    public List<User> findAllUsers() {
-        return userRepository.findAll();
-    }
-
     public User findUserByUserName(String userName) {
         return userRepository.findByUserName(userName);
+    }
+
+    public List<User> findAllUsers() {
+        return userRepository.findAll();
     }
 
     public User saveUser(User user) {
@@ -38,5 +40,15 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
         return userRepository.findByUserName(userName);
+    }
+
+    public boolean isRegistrationFormRight(User user, BindingResult bindingResult) {
+        User checkUser = findUserByUserName(user.getUserName());
+        if (checkUser != null) {
+            if (!checkUser.getId().equals(user.getId())) {
+                bindingResult.addError(new FieldError("user", "userName", "A user with this name already exists [" + user.getUserName() + "]."));
+            }
+        }
+        return !bindingResult.hasErrors();
     }
 }

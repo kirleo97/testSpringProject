@@ -1,10 +1,12 @@
 package com.example.StadiumsSystem.domain;
 
+import org.hibernate.validator.constraints.Length;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,7 +17,13 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+    @Length(min = 2)
+    @NotBlank
+    @Column(unique = true, nullable = false)
     private String userName;
+    @Length(min = 2, max = 100)
+    @NotBlank
+    @Column(unique = true, nullable = false)
     private String password;
     private boolean isActive;
 

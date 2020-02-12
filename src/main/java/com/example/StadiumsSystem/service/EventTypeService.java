@@ -1,6 +1,7 @@
 package com.example.StadiumsSystem.service;
 
 import com.example.StadiumsSystem.domain.EventType;
+import com.example.StadiumsSystem.domain.User;
 import com.example.StadiumsSystem.repository.EventTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,13 +36,12 @@ public class EventTypeService {
     }
 
     public boolean isValidationForEventTypeSuccessful(EventType eventType, BindingResult bindingResult) {
-        if(isEventTypeWithDefinedNameExist(eventType.getEventTypeName())) {
-            bindingResult.addError(new FieldError("eventType", "eventTypeName", "Тип мероприятия с именем '" + eventType.getEventTypeName() + "' уже существует. Пожалуйста, введите другое имя."));
+        EventType checkEventType = eventTypeRepository.findByEventTypeName(eventType.getEventTypeName());
+        if (checkEventType != null) {
+            if (!checkEventType.getId().equals(eventType.getId())) {
+                bindingResult.addError(new FieldError("eventType", "eventTypeName", "Тип мероприятия с именем '" + eventType.getEventTypeName() + "' уже существует. Пожалуйста, введите другое имя."));
+            }
         }
         return !bindingResult.hasErrors();
-    }
-
-    public boolean isEventTypeWithDefinedNameExist(String eventTypeName) {
-        return eventTypeRepository.findByEventTypeName(eventTypeName) != null;
     }
 }

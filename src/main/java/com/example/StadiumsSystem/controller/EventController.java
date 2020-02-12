@@ -57,7 +57,7 @@ public class EventController {
         }
         eventService.checkValidationFormForEvent(event, bindingResult);
         if (!event.getStadiumOfEvent().getEventTypes().contains(event.getEventType())) {
-            bindingResult.addError(new FieldError("event", "stadiumOfEvent", "У выбранного стадиона нет такого вида мероприятия. Возможные стадионы для данного вида мероприятия: " + stadiumService.findAllStadiumsByEventType(event.getEventType())));
+            bindingResult.addError(new FieldError("event", "stadiumOfEvent", "The selected stadium does not have this type of event. Possible stadiums for this type of event: " + stadiumService.findAllStadiumsByEventType(event.getEventType())));
         }
         if (bindingResult.hasErrors()) {
             return "create/event-create";
@@ -90,7 +90,7 @@ public class EventController {
             return "update/event-update";
         }
         if (!event.getStadiumOfEvent().getEventTypes().contains(event.getEventType())) {
-            bindingResult.addError(new FieldError("event", "stadiumOfEvent", "У выбранного стадиона нет такого вида мероприятия. Возможные стадионы для данного вида мероприятия: " + stadiumService.findAllStadiumsByEventType(event.getEventType())));
+            bindingResult.addError(new FieldError("event", "stadiumOfEvent", "The selected stadium does not have this type of event. Possible stadiums for this type of event: " + stadiumService.findAllStadiumsByEventType(event.getEventType())));
         }
         eventService.checkValidationFormForEvent(event, bindingResult);
         if (bindingResult.hasErrors()) {
