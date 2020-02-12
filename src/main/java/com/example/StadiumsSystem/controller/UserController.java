@@ -33,7 +33,8 @@ public class UserController {
         return "update/user-update";
     }
     @PostMapping("/update/user")
-    public String saveUser(User user, Model model) {
+    public String saveUser(User user) {
+        user.setActive(true);
         userService.saveUser(user);
         return "redirect:/list/user-list";
     }

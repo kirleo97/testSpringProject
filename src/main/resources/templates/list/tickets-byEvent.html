@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<html lang="en" xmlns:th="http://www.thymeleaf.org/" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>TicketsByEvent</title>
@@ -25,8 +25,8 @@
                 <td th:text="${ticket.seatNumber}"></td>
                 <td th:text="${ticket.ticketCost}"></td>
                 <td th:text="${ticket.ticketBought}"></td>
-                <td><a th:href="@{/update/ticket-update/event/{eventId}/{ticketId} (eventId=${IdOfEvent}, ticketId=${ticket.id})}">Edit</a></td>
-                <td><a th:href="@{/delete/ticket-delete/{eventId}/{ticketId} (eventId=${IdOfEvent}, ticketId=${ticket.id}) }">Delete</a></td>
+                <td sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/update/ticket-update/event/{eventId}/{ticketId} (eventId=${IdOfEvent}, ticketId=${ticket.id})}">Edit</a></td>
+                <td sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/delete/ticket-delete/{eventId}/{ticketId} (eventId=${IdOfEvent}, ticketId=${ticket.id}) }">Delete</a></td>
                 <td th:if="${ticket.ticketBought} == false">
                     <form action="#" th:action="@{/buy/ticket-buy/{eventId}/{ticketId} (eventId=${IdOfEvent}, ticketId=${ticket.id})}" method="post">
                         <input type="submit" value="Buy ticket">
@@ -36,8 +36,8 @@
             </tbody>
         </table>
     </div>
-    <p><a th:href="@{/create/ticket-create/event/{id}(id=${IdOfEvent})}">Create tickets</a></p>
-    <p><a th:href="@{/delete/ticket-delete/event/{id} (id=${IdOfEvent})}">Delete tickets</a></p>
+    <p sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/create/ticket-create/event/{id}(id=${IdOfEvent})}">Create tickets</a></p>
+    <p sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/delete/ticket-delete/event/{id} (id=${IdOfEvent})}">Delete tickets</a></p>
 </div>
 <div><a href="/main">Перейти на главную страницу</a></div>
 </body>

@@ -16,6 +16,10 @@
             <td> <input type="text" th:field="${user.userName}" placeholder="Write name for Stadium"></td>
         </tr>
         <tr>
+            <td>Пароль</td>
+            <td> <input type="hidden" th:field="${user.password}" placeholder="Password"></td>
+        </tr>
+        <tr>
             <td>Выберете роли</td>
             <td>
                 <select th:field="${user.roles}" multiple>
