@@ -3,11 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Update Ticket</title>
+    <style>
+        td { text-align: center; }
+    </style>
 </head>
 <body>
 <h1>Please, edit Ticket</h1>
 <form action="#" th:action="@{/update/ticket-update/event/{eventId}/{ticketId} (eventId=${IdOfEvent}, ticketId=${IdOfTicket})}" method="post">
-    <table>
+    <table border="1">
         <tr>
             <td>ID</td>
             <td><input readonly type="number" th:field="${ticket.id}" id="id" placeholder="ID"></td>

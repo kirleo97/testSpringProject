@@ -3,11 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Delete Ticket</title>
+    <style>
+        td { text-align: center; }
+    </style>
 </head>
 <body>
 <h1>Please, delete some tickets</h1>
 <form action="#" th:action="@{/delete/ticket-delete/event/{id} (id=${IdOfEvent})}" method="post">
-    <table>
+    <table border="1">
         <tr>
             <td>Name of event:</td>
             <td th:text="${event.eventName}"></td>

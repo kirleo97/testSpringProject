@@ -5,18 +5,26 @@
     <title>Main page</title>
 </head>
 <body>
+<p>
     <div>Hello!</div>
-    <div sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/list/user-list}">Пользователи</a></div>
+</p>
+<p>
+    <div sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/list/user-list}">Users</a></div>
+</p>
+<p>
     <div>
         <form th:action="@{/logout}" method="post">
             <input type="submit" value="Sign Out"/>
         </form>
     </div>
+</p>
+<p>
     <div sec:authorize="hasRole('ROLE_ADMIN')"><a href="/list/eventTypes">Event types</a></div>
     <div sec:authorize="hasRole('ROLE_ADMIN')"><a href="/list/managers">Managers</a></div>
     <div sec:authorize="hasRole('ROLE_ADMIN')"><a href="/list/stadiums">Stadiums</a></div>
     <div sec:authorize="hasRole('ROLE_ADMIN')"><a href="/list/events">Events</a></div>
     <div sec:authorize="hasRole('ROLE_ADMIN')"><a href="/list/sectors">Sectors</a></div>
     <div><a href="/tickets">Tickets</a></div>
+</p>
 </body>
 </html>

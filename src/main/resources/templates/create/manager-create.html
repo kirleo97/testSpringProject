@@ -3,10 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Create Manager</title>
+    <style>
+        td { text-align: center; }
+    </style>
 </head>
 <body>
 <form action="#" th:action="@{/create/manager-create}" th:object="${manager}" method="post">
-    <table>
+    <table border="1">
         <tr>
             <td>Manager's name:</td>
             <td> <input type="text" th:field="*{managerName}" id="managerName" placeholder="Write name for Manager" /></td>

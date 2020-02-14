@@ -3,11 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Create Sector</title>
+    <style>
+        td { text-align: center; }
+    </style>
 </head>
 <body>
 <h1>Please, create some Sector</h1>
 <form action="#" th:action="@{/create/sector-create}" th:object="${sector}" method="post">
-    <table>
+    <table border="1">
         <tr>
             <td>Select stadium for sector:</td>
             <td>

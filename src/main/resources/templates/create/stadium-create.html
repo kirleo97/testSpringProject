@@ -3,11 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Create Stadium</title>
+    <style>
+        td { text-align: center; }
+    </style>
 </head>
 <body>
 <h1>Please, create some Stadium</h1>
 <form action="#" th:action="@{/create/stadium-create}" th:object="${stadium}" method="post">
-    <table>
+    <table border="1">
         <tr>
             <td>Stadium's name:</td>
             <td> <input type="text" th:field="${stadium.stadiumName}" placeholder="Write name for Stadium"></td>

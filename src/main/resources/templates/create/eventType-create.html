@@ -3,10 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Create EventType</title>
+    <style>
+        td { text-align: center; }
+    </style>
 </head>
 <body>
 <form action="#" th:action="@{/create/eventType-create}" th:object="${eventType}" method="post">
-    <table>
+    <table border="1">
         <tr>
             <td>EventType name:</td>
             <td> <input type="text" th:field="*{eventTypeName}" id="eventTypeName" placeholder="Write name for EventType" /></td>

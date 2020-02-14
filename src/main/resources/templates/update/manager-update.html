@@ -3,10 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Update Manager</title>
+    <style>
+        td { text-align: center; }
+    </style>
 </head>
 <body>
 <form action="#" th:action="@{/update/manager-update}" th:object="${manager}" method="post">
-    <table>
+    <table border="1">
         <tr>
             <td>Manager's ID:</td>
             <td><input readonly type="number" th:field="*{id}" id="id" placeholder="ID"></td>

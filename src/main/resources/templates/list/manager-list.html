@@ -3,13 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Managers</title>
+    <style>
+        td { text-align: center; }
+    </style>
 </head>
 <body>
 <div th:switch="${managers}">
     <h2 th:case="null">No managers found!</h2>
     <div th:case="*">
         <h2>Managers</h2>
-        <table>
+        <table border="3">
             <thead>
             <tr>
                 <th>Id</th>
