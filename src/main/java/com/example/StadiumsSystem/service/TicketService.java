@@ -5,8 +5,13 @@ import com.example.StadiumsSystem.domain.Sector;
 import com.example.StadiumsSystem.domain.Ticket;
 import com.example.StadiumsSystem.repository.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -34,9 +39,7 @@ public class TicketService {
         ticketRepository.deleteById(id);
     }
 
-    public List<Ticket> findAllByEvent(Event event) {
-        return ticketRepository.findAllByEventOfTicket(event);
-    }
+    public List<Ticket> findAllByEvent(Event event) { return ticketRepository.findAllByEventOfTicket(event); }
 
     public Ticket findByEventOfTicketAndSectorOfTicketAndSeatNumber(Event eventOfTicket, Sector sectorOfTicket, Integer seatNumber) {
         return ticketRepository.findByEventOfTicketAndSectorOfTicketAndSeatNumber(eventOfTicket, sectorOfTicket, seatNumber);
@@ -63,5 +66,24 @@ public class TicketService {
         seatNumber = seatNumber <= 0 ? 1 : seatNumber;
         int maxNumberOfSeats = sector.getNumberOfSeats();
         return seatNumber > maxNumberOfSeats ? maxNumberOfSeats : seatNumber;
+    }
+
+    public Page<Ticket> findPaginated(List<Ticket> tickets, Pageable pageable) {
+        int pageSize = pageable.getPageSize();
+        int currentPage = pageable.getPageNumber();
+        int startItem = currentPage * pageSize;
+        List<Ticket> list;
+
+        if (tickets.size() < startItem) {
+            list = Collections.emptyList();
+        } else {
+            int toIndex = Math.min(startItem + pageSize, tickets.size());
+            list = tickets.subList(startItem, toIndex);
+        }
+
+        Page<Ticket> bookPage
+                = new PageImpl<Ticket>(list, PageRequest.of(currentPage, pageSize), tickets.size());
+
+        return bookPage;
     }
 }

@@ -7,6 +7,9 @@ import com.example.StadiumsSystem.service.EventService;
 import com.example.StadiumsSystem.service.SectorService;
 import com.example.StadiumsSystem.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +19,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Controller
 public class TicketController {
@@ -37,10 +44,27 @@ public class TicketController {
     }
 
     @GetMapping("/tickets/event/{id}")
-    public String getTicketsByEvent(@PathVariable Integer id, Model model) {
+    public String getTicketsByEvent(@PathVariable Integer id, @RequestParam("page") Optional<Integer> page,
+                                    @RequestParam("size") Optional<Integer> size, Model model) {
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(10);
+
         Event event = eventService.findById(id);
         model.addAttribute("event", event);
-        model.addAttribute("tickets", ticketService.findAllByEvent(event));
+        List<Ticket> ticketList = ticketService.findAllByEvent(event);
+        Page<Ticket> bookPage = ticketService.findPaginated(ticketList, PageRequest.of(currentPage - 1, pageSize));
+        model.addAttribute("bookPage", bookPage);
+
+        int totalPages = bookPage.getTotalPages();
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                    .boxed()
+                    .collect(Collectors.toList());
+            model.addAttribute("pageNumbers", pageNumbers);
+        }
+
+
+        model.addAttribute("tickets", ticketList);
         model.addAttribute("IdOfEvent", id);
         return "list/tickets-byEvent";
     }
