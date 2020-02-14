@@ -39,7 +39,7 @@ public class EventService {
     public void checkIfDateOfEventIsInPeriodOfPreparationAndDismantle(Event event, BindingResult bindingResult) {
         LocalDate dateOfEvent = LocalDate.from(event.getDateOfEvent());
         if (dateOfEvent.isBefore(event.getStartOfPreparationOfStadium()) || dateOfEvent.isAfter(event.getEndOfDismantleOfStadium())) {
-            bindingResult.addError(new FieldError("event", "dateOfEvent", "The date of the event must be included in the period of preparation and completion of the event ( " + dateOfEvent));
+            bindingResult.addError(new FieldError("event", "dateOfEvent", "The date of the event must be included in the period of preparation and completion of the event ( " + dateOfEvent + ")"));
         }
     }
 

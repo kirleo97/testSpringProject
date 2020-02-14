@@ -9,62 +9,87 @@
 </head>
 <body>
 <h1>Please, create some Event</h1>
-<form action="#" th:action="@{/create/event-create}" th:object="${event}" method="post">
-    <table border="1">
-        <tr>
-            <td>
-                <select th:field="${event.eventType}">
-                    <option th:each="ev : ${eventTypes}" th:value="${ev.id}" th:text="${ev.eventTypeName}">
-                    </option>
-                </select>
-            </td>
-            <td th:if="${#fields.hasErrors('eventType')}" th:errors="${event.eventType}" th:style="${'color: red;'}">EventType Error</td>
-        </tr>
-        <tr>
-            <td>Event's name:</td>
-            <td> <input type="text" th:field="${event.eventName}" placeholder="Write name for Event"></td>
-            <td th:if="${#fields.hasErrors('eventName')}" th:errors="${event.eventName}" th:style="${'color: red;'}">Event's name Error</td>
-        </tr>
-        <tr>
-            <td>Event's date:</td>
-            <td> <input type="datetime-local" th:field="${event.dateOfEvent}" name="date" placeholder="Write date for Event"></td>
-            <td th:if="${#fields.hasErrors('dateOfEvent')}" th:errors="${event.dateOfEvent}" th:style="${'color: red;'}">Event's date Error</td>
-        </tr>
-        <tr>
-            <td>Event's stadium</td>
-            <td>
-                <select th:field="${event.stadiumOfEvent}">
-                    <option th:each="stadium : ${stadiums}" th:value="${stadium.id}" th:text="${stadium.stadiumName}">
-                    </option>
-                </select>
-            </td>
-            <td th:if="${#fields.hasErrors('stadiumOfEvent')}" th:errors="${event.stadiumOfEvent}" th:style="${'color: red;'}">Event's stadium Error</td>
-        </tr>
-        <tr>
-            <td>Event's start of preparation period:</td>
-            <td> <input type="date" th:field="${event.startOfPreparationOfStadium}" name="startOfPreparation" placeholder="Write period of prepare for Event"></td>
-            <td th:if="${#fields.hasErrors('startOfPreparationOfStadium')}" th:errors="${event.startOfPreparationOfStadium}" th:style="${'color: red;'}">Event's start of period Error</td>
-        </tr>
-        <tr>
-            <td>Event's end of dismantle period:</td>
-            <td> <input type="date" th:field="${event.endOfDismantleOfStadium}" name="endOfDismantle" placeholder="Write period of prepare for Event"></td>
-            <td th:if="${#fields.hasErrors('endOfDismantleOfStadium')}" th:errors="${event.endOfDismantleOfStadium}" th:style="${'color: red;'}">Event's end of period Error</td>
-        </tr>
-        <tr>
-            <td>Event's manager</td>
-            <td>
-                <select th:field="${event.eventManager}">
-                    <option th:each="manager : ${managers}" th:value="${manager.id}" th:text="${manager.managerName}">
-                    </option>
-                </select>
-            </td>
-            <td th:if="${#fields.hasErrors('eventManager')}" th:errors="${event.eventManager}" th:style="${'color: red;'}">Event's manager Error</td>
-        </tr>
-        <tr>
-            <td><button type="submit">Create Event</button></td>
-        </tr>
-    </table>
-</form>
-<div><a href="/main">Go to main page</a></div>
+<p>
+    <form action="#" th:action="@{/create/event-create}" th:object="${event}" method="post">
+        <table border="1">
+            <tr>
+                <td>EventType:</td>
+                <td>
+                    <select th:field="${event.eventType}">
+                        <option th:each="ev : ${eventTypes}" th:value="${ev.id}" th:text="${ev.eventTypeName}">
+                        </option>
+                    </select>
+                </td>
+                <td th:if="${#fields.hasErrors('eventType')}" th:errors="${event.eventType}"
+                    th:style="${'color: red;'}">EventType Error
+                </td>
+            </tr>
+            <tr>
+                <td>Event's name:</td>
+                <td><input type="text" th:field="${event.eventName}" placeholder="Write name for Event"></td>
+                <td th:if="${#fields.hasErrors('eventName')}" th:errors="${event.eventName}"
+                    th:style="${'color: red;'}">Event's name Error
+                </td>
+            </tr>
+            <tr>
+                <td>Event's date:</td>
+                <td><input type="datetime-local" th:field="${event.dateOfEvent}" name="date"
+                           placeholder="Write date for Event"></td>
+                <td th:if="${#fields.hasErrors('dateOfEvent')}" th:errors="${event.dateOfEvent}"
+                    th:style="${'color: red;'}">Event's date Error
+                </td>
+            </tr>
+            <tr>
+                <td>Event's stadium</td>
+                <td>
+                    <select th:field="${event.stadiumOfEvent}">
+                        <option th:each="stadium : ${stadiums}" th:value="${stadium.id}"
+                                th:text="${stadium.stadiumName}">
+                        </option>
+                    </select>
+                </td>
+                <td th:if="${#fields.hasErrors('stadiumOfEvent')}" th:errors="${event.stadiumOfEvent}"
+                    th:style="${'color: red;'}">Event's stadium Error
+                </td>
+            </tr>
+            <tr>
+                <td>Event's start of preparation period:</td>
+                <td><input type="date" th:field="${event.startOfPreparationOfStadium}" name="startOfPreparation"
+                           placeholder="Write period of prepare for Event"></td>
+                <td th:if="${#fields.hasErrors('startOfPreparationOfStadium')}"
+                    th:errors="${event.startOfPreparationOfStadium}" th:style="${'color: red;'}">Event's start of period
+                    Error
+                </td>
+            </tr>
+            <tr>
+                <td>Event's end of dismantle period:</td>
+                <td><input type="date" th:field="${event.endOfDismantleOfStadium}" name="endOfDismantle"
+                           placeholder="Write period of prepare for Event"></td>
+                <td th:if="${#fields.hasErrors('endOfDismantleOfStadium')}" th:errors="${event.endOfDismantleOfStadium}"
+                    th:style="${'color: red;'}">Event's end of period Error
+                </td>
+            </tr>
+            <tr>
+                <td>Event's manager</td>
+                <td>
+                    <select th:field="${event.eventManager}">
+                        <option th:each="manager : ${managers}" th:value="${manager.id}"
+                                th:text="${manager.managerName}">
+                        </option>
+                    </select>
+                </td>
+                <td th:if="${#fields.hasErrors('eventManager')}" th:errors="${event.eventManager}"
+                    th:style="${'color: red;'}">Event's manager Error
+                </td>
+            </tr>
+            <tr>
+                <td><button type="submit">Create Event</button></td>
+            </tr>
+        </table>
+    </form>
+</p>
+<p>
+    <div><a href="/main">Go to main page</a></div>
+</p>
 </body>
 </html>
