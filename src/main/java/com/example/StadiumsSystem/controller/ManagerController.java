@@ -24,8 +24,7 @@ public class ManagerController {
 
     @GetMapping("/list/managers")
     public String findAll(Model model) {
-        List<Manager> managers = managerService.findAll();
-        model.addAttribute("managers", managers);
+        model.addAttribute("managers", managerService.findAll());
         return "list/manager-list";
     }
 
@@ -52,8 +51,7 @@ public class ManagerController {
 
     @GetMapping("/update/manager-update/{id}")
     public String updateEventTypeForm(@PathVariable("id") Integer id, Model model) {
-        Manager manager = managerService.findById(id);
-        model.addAttribute("manager", manager);
+        model.addAttribute("manager", managerService.findById(id));
         return "update/manager-update";
     }
 

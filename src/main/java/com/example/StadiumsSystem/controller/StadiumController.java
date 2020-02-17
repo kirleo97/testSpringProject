@@ -27,8 +27,7 @@ public class StadiumController {
 
     @GetMapping("/list/stadiums")
     public String findAll(Model model) {
-        List<Stadium> stadiums = stadiumService.findAll();
-        model.addAttribute("stadiums", stadiums);
+        model.addAttribute("stadiums", stadiumService.findAll());
         return "list/stadium-list";
     }
 
@@ -57,8 +56,7 @@ public class StadiumController {
 
     @GetMapping("/update/stadium-update/{id}")
     public String updateStadiumForm(@PathVariable("id") Integer id, Model model) {
-        Stadium stadium = stadiumService.findById(id);
-        model.addAttribute("stadium", stadium);
+        model.addAttribute("stadium", stadiumService.findById(id));
         model.addAttribute("events", eventTypeService.findAll());
         return "update/stadium-update";
     }
