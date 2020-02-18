@@ -63,7 +63,6 @@ public class TicketController {
             model.addAttribute("pageNumbers", pageNumbers);
         }
 
-
         model.addAttribute("tickets", ticketList);
         model.addAttribute("IdOfEvent", id);
         return "list/tickets-byEvent";
